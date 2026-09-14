@@ -1,6 +1,14 @@
+# Secrets & Environment
+.env
+.env.*
+!.env.example
+backend/.env
+frontend/.env
+frontend/.env.local
+
 # Python
 backend/venv/
-backend/.env
+venv/
 **/__pycache__/
 *.py[cod]
 *$py.class
@@ -10,8 +18,6 @@ backend/.env
 # Node / Frontend
 frontend/node_modules/
 frontend/dist/
-frontend/.env
-frontend/.env.local
 .eslintcache
 
 # Logs & OS
@@ -21,5 +27,7 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Large local downloads
+# Large local downloads & artifacts
+response_voice.wav
 knowledge_base/raw/temp/
+
