@@ -1,0 +1,1244 @@
+{
+  "0a066783-1c52-4343-9f81-179ccbdee2d3": {
+    "id": "0a066783-1c52-4343-9f81-179ccbdee2d3",
+    "standard_number": "IS 2347:2017",
+    "title": "Domestic Pressure Cookers — Specification",
+    "product": "Domestic Pressure Cooker",
+    "document_type": "Indian Standard",
+    "version": "2017",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "MED (Mechanical Engineering)",
+      "certification_scheme": "Scheme I (ISI Mark - Mandatory)",
+      "mandatory": true,
+      "qco_order": "Domestic Pressure Cookers (Quality Control) Order",
+      "keywords": [
+        "pressure cooker",
+        "cooker",
+        "domestic pressure cooker",
+        "kitchen cooker",
+        "whistle cooker"
+      ]
+    },
+    "created_at": "2026-09-11T16:11:51.471914+00:00",
+    "updated_at": "2026-09-11T16:22:02.667885+00:00",
+    "category": "Consumer Goods / Kitchenware"
+  },
+  "a56b46e5-f46c-4139-a61c-9c1ec3b58b72": {
+    "id": "a56b46e5-f46c-4139-a61c-9c1ec3b58b72",
+    "standard_number": "IS 4151:2020",
+    "title": "Protective Helmets for Two-Wheeler Riders — Specification",
+    "product": "Two-Wheeler Helmet",
+    "document_type": "Indian Standard",
+    "version": "2020",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "MED (Mechanical Engineering)",
+      "certification_scheme": "Scheme I (ISI Mark - Mandatory)",
+      "mandatory": true,
+      "qco_order": "Two Wheeler Helmets (Quality Control) Order",
+      "keywords": [
+        "helmet",
+        "two-wheeler helmet",
+        "motorcycle helmet",
+        "bike helmet",
+        "crash helmet",
+        "rider helmet"
+      ]
+    },
+    "created_at": "2026-09-11T16:11:52.184565+00:00",
+    "updated_at": "2026-09-11T16:22:03.385969+00:00",
+    "category": "Consumer Safety / Automotive"
+  },
+  "0db9c699-7296-4598-bdcf-2358a2ed1fc2": {
+    "id": "0db9c699-7296-4598-bdcf-2358a2ed1fc2",
+    "standard_number": "IS 4246:2002",
+    "title": "Domestic Gas Stoves for use with Liquefied Petroleum Gases — Specification",
+    "product": "Domestic Gas Stove (LPG Stove)",
+    "document_type": "Indian Standard",
+    "version": "2002",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "MED (Mechanical Engineering)",
+      "certification_scheme": "Scheme I (ISI Mark - Mandatory)",
+      "mandatory": true,
+      "qco_order": "Domestic Gas Stoves (Quality Control) Order",
+      "keywords": [
+        "gas stove",
+        "lpg stove",
+        "gas cooktop",
+        "domestic gas stove",
+        "burner stove",
+        "chulha"
+      ]
+    },
+    "created_at": "2026-09-11T16:11:52.963943+00:00",
+    "updated_at": "2026-09-11T16:22:04.435289+00:00",
+    "category": "Consumer Appliances"
+  },
+  "9b63e1d0-a227-4fea-92b4-17eaca43f32d": {
+    "id": "9b63e1d0-a227-4fea-92b4-17eaca43f32d",
+    "standard_number": "IS 3196 (Part 1):2013",
+    "title": "Welded Low Carbon Steel Gas Cylinders Exceeding 5 Litre Water Capacity for Low Pressure Liquefiable Gases",
+    "product": "LPG Gas Cylinder",
+    "document_type": "Indian Standard",
+    "version": "2013",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "MED (Mechanical Engineering)",
+      "certification_scheme": "Scheme I (ISI Mark - Mandatory)",
+      "mandatory": true,
+      "qco_order": "Gas Cylinders Rules",
+      "keywords": [
+        "lpg cylinder",
+        "gas cylinder",
+        "cooking gas cylinder",
+        "steel cylinder"
+      ]
+    },
+    "created_at": "2026-09-11T16:11:53.939024+00:00",
+    "updated_at": "2026-09-11T16:22:05.357638+00:00",
+    "category": "Industrial / Petroleum Equipment"
+  },
+  "aa1e5179-474f-46ec-9100-9f1a707d3d94": {
+    "id": "aa1e5179-474f-46ec-9100-9f1a707d3d94",
+    "standard_number": "IS 17803:2022",
+    "title": "Stainless Steel Vacuum Flasks and Insulated Bottles — Specification",
+    "product": "Stainless Steel Water Bottle / Vacuum Flask",
+    "document_type": "Indian Standard",
+    "version": "2022",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "MED (Mechanical Engineering)",
+      "certification_scheme": "Scheme I (ISI Mark - Mandatory)",
+      "mandatory": true,
+      "qco_order": "Insulated Flasks and Containers (Quality Control) Order",
+      "keywords": [
+        "water bottle",
+        "stainless steel bottle",
+        "vacuum flask",
+        "insulated bottle",
+        "thermos flask",
+        "flask"
+      ]
+    },
+    "created_at": "2026-09-11T16:11:54.931224+00:00",
+    "updated_at": "2026-09-11T16:22:06.098946+00:00",
+    "category": "Consumer Goods / Drinkware"
+  },
+  "1ca51659-3af8-4812-bf65-4febe14cb988": {
+    "id": "1ca51659-3af8-4812-bf65-4febe14cb988",
+    "standard_number": "IS 374:2019",
+    "title": "Electric Ceiling Type Fans and Regulators — Specification",
+    "product": "Electric Ceiling Fan",
+    "document_type": "Indian Standard",
+    "version": "2019",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "ETD (Electrotechnical)",
+      "certification_scheme": "Scheme I (ISI Mark - Mandatory)",
+      "mandatory": true,
+      "qco_order": "Ceiling Fans (Quality Control) Order / BEE Star Rating Mandatory",
+      "keywords": [
+        "ceiling fan",
+        "fan",
+        "electric fan",
+        "bldc fan",
+        "table fan"
+      ]
+    },
+    "created_at": "2026-09-11T16:11:55.497745+00:00",
+    "updated_at": "2026-09-11T16:22:07.064753+00:00",
+    "category": "Electrical Appliances"
+  },
+  "77674acb-cc22-403a-8d31-d7f98b9fa6af": {
+    "id": "77674acb-cc22-403a-8d31-d7f98b9fa6af",
+    "standard_number": "IS 694:2010",
+    "title": "Polyvinyl Chloride Insulated Unsheathed and Sheathed Cables/Cords with Rigid and Flexible Conductor",
+    "product": "PVC Insulated Electric Cables & Wires",
+    "document_type": "Indian Standard",
+    "version": "2010",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "ETD (Electrotechnical)",
+      "certification_scheme": "Scheme I (ISI Mark - Mandatory)",
+      "mandatory": true,
+      "qco_order": "Electrical Wires and Cables (Quality Control) Order",
+      "keywords": [
+        "electric wire",
+        "cable",
+        "pvc cable",
+        "copper wire",
+        "house wire",
+        "electric cables"
+      ]
+    },
+    "created_at": "2026-09-11T16:11:55.998376+00:00",
+    "updated_at": "2026-09-11T16:22:07.899047+00:00",
+    "category": "Electrical Wiring"
+  },
+  "7b02cfb0-7eef-4a70-8782-2389d37c6be3": {
+    "id": "7b02cfb0-7eef-4a70-8782-2389d37c6be3",
+    "standard_number": "IS 1293:2019",
+    "title": "Plugs and Socket-Outlets for Domestic and Similar General Use According to Voltage up to 250V",
+    "product": "Plugs and Socket Outlets",
+    "document_type": "Indian Standard",
+    "version": "2019",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "ETD (Electrotechnical)",
+      "certification_scheme": "Scheme I (ISI Mark - Mandatory)",
+      "mandatory": true,
+      "qco_order": "Plugs and Socket-Outlets (Quality Control) Order",
+      "keywords": [
+        "plug",
+        "socket",
+        "electrical plug",
+        "socket outlet",
+        "power socket",
+        "3-pin plug"
+      ]
+    },
+    "created_at": "2026-09-11T16:11:56.484161+00:00",
+    "updated_at": "2026-09-11T16:22:08.603537+00:00",
+    "category": "Electrical Accessories"
+  },
+  "47f3b623-03af-45e0-92f7-149743cf6cdf": {
+    "id": "47f3b623-03af-45e0-92f7-149743cf6cdf",
+    "standard_number": "IS 3854:1988",
+    "title": "Switches for Domestic and Similar General Purposes — Specification",
+    "product": "Domestic Electric Switches",
+    "document_type": "Indian Standard",
+    "version": "1988",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "ETD (Electrotechnical)",
+      "certification_scheme": "Scheme I (ISI Mark - Mandatory)",
+      "mandatory": true,
+      "qco_order": "Electrical Accessories (Quality Control) Order",
+      "keywords": [
+        "switch",
+        "electric switch",
+        "light switch",
+        "modular switch",
+        "domestic switch"
+      ]
+    },
+    "created_at": "2026-09-11T16:11:56.931716+00:00",
+    "updated_at": "2026-09-11T16:22:09.317170+00:00",
+    "category": "Electrical Accessories"
+  },
+  "89812a7e-a537-4711-a98e-8c84fb048517": {
+    "id": "89812a7e-a537-4711-a98e-8c84fb048517",
+    "standard_number": "IS 302 (Part 1):2008",
+    "title": "Safety of Household and Similar Electrical Appliances — General Requirements",
+    "product": "Household Electrical Appliances (General Safety)",
+    "document_type": "Indian Standard",
+    "version": "2008",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "ETD (Electrotechnical)",
+      "certification_scheme": "Scheme I (ISI Mark - Mandatory)",
+      "mandatory": true,
+      "qco_order": "Electrical Appliances Safety Order",
+      "keywords": [
+        "appliances",
+        "electric iron",
+        "immersion heater",
+        "toaster",
+        "microwave",
+        "mixer grinder"
+      ]
+    },
+    "created_at": "2026-09-11T16:11:57.747301+00:00",
+    "updated_at": "2026-09-11T16:22:09.988451+00:00",
+    "category": "Consumer Electrical Appliances"
+  },
+  "b3c3c4b9-d6be-4c75-aac0-5d53b9842062": {
+    "id": "b3c3c4b9-d6be-4c75-aac0-5d53b9842062",
+    "standard_number": "IS 13252 (Part 1):2010",
+    "title": "Information Technology Equipment — Safety: General Requirements",
+    "product": "Laptops, Mobile Phones, Power Adapters, Scanners, Printers",
+    "document_type": "Indian Standard",
+    "version": "2010",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "LITD (Electronics & IT)",
+      "certification_scheme": "Scheme II (CRS - Compulsory Registration Scheme)",
+      "mandatory": true,
+      "qco_order": "MeitY Electronics and Information Technology Goods (Requirement for Compulsory Registration) Order",
+      "keywords": [
+        "laptop",
+        "mobile phone",
+        "smartphone",
+        "power adapter",
+        "charger",
+        "printer",
+        "scanner",
+        "tablet"
+      ]
+    },
+    "created_at": "2026-09-11T16:11:58.287878+00:00",
+    "updated_at": "2026-09-11T16:22:10.762202+00:00",
+    "category": "Electronics & IT Equipment"
+  },
+  "5af096d0-9463-4129-b57f-16f5432dd9d9": {
+    "id": "5af096d0-9463-4129-b57f-16f5432dd9d9",
+    "standard_number": "IS 16046 (Part 2):2018",
+    "title": "Secondary Cells and Batteries Containing Alkaline or Other Non-Acid Electrolytes — Lithium Systems",
+    "product": "Lithium-ion Batteries and Cells",
+    "document_type": "Indian Standard",
+    "version": "2018",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "LITD (Electronics & IT)",
+      "certification_scheme": "Scheme II (CRS - Compulsory Registration Scheme)",
+      "mandatory": true,
+      "qco_order": "MeitY CRS Order for Portable Secondary Cells",
+      "keywords": [
+        "lithium battery",
+        "li-ion battery",
+        "phone battery",
+        "laptop battery",
+        "ev battery",
+        "battery cell",
+        "power bank battery",
+        "mobile battery",
+        "mobile phone battery",
+        "battery",
+        "batteries",
+        "lithium-ion battery"
+      ]
+    },
+    "created_at": "2026-09-11T16:11:59.231393+00:00",
+    "updated_at": "2026-09-11T16:22:11.447893+00:00",
+    "category": "Batteries & Power Storage"
+  },
+  "93b830b3-99de-4660-9b02-465475381818": {
+    "id": "93b830b3-99de-4660-9b02-465475381818",
+    "standard_number": "IS 16102 (Part 1):2012",
+    "title": "Self-Ballasted LED Lamps for General Lighting Services — Safety Requirements",
+    "product": "LED Bulbs / LED Lamps",
+    "document_type": "Indian Standard",
+    "version": "2012",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "LITD (Electronics & IT)",
+      "certification_scheme": "Scheme II (CRS - Compulsory Registration Scheme)",
+      "mandatory": true,
+      "qco_order": "MeitY CRS Order for Self-Ballasted LED Lamps",
+      "keywords": [
+        "led bulb",
+        "led lamp",
+        "led light",
+        "bulb",
+        "tube light"
+      ]
+    },
+    "created_at": "2026-09-11T16:12:00.107936+00:00",
+    "updated_at": "2026-09-11T16:22:12.219378+00:00",
+    "category": "Lighting & Electronics"
+  },
+  "2341468a-ee28-4ba0-b57d-ea968585848e": {
+    "id": "2341468a-ee28-4ba0-b57d-ea968585848e",
+    "standard_number": "IS 16242 (Part 1):2014",
+    "title": "Uninterruptible Power Systems (UPS) — General and Safety Requirements",
+    "product": "UPS / Inverter",
+    "document_type": "Indian Standard",
+    "version": "2014",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "LITD (Electronics & IT)",
+      "certification_scheme": "Scheme II (CRS - Compulsory Registration Scheme)",
+      "mandatory": true,
+      "qco_order": "MeitY CRS Order for Inverters and UPS",
+      "keywords": [
+        "ups",
+        "inverter",
+        "power backup",
+        "solar inverter"
+      ]
+    },
+    "created_at": "2026-09-11T16:12:00.572850+00:00",
+    "updated_at": "2026-09-11T16:22:13.098471+00:00",
+    "category": "Electronics & Power Backup"
+  },
+  "6df896a8-d024-41d4-a7e4-6b004178e447": {
+    "id": "6df896a8-d024-41d4-a7e4-6b004178e447",
+    "standard_number": "IS 14543:2016",
+    "title": "Packaged Drinking Water (Other Than Packaged Natural Mineral Water) — Specification",
+    "product": "Packaged Drinking Water (Bottled Water)",
+    "document_type": "Indian Standard",
+    "version": "2016",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "FAD (Food & Agriculture)",
+      "certification_scheme": "Scheme I (ISI Mark - Mandatory)",
+      "mandatory": true,
+      "qco_order": "Food Safety and Standards (Packaging and Labelling) Regulations / Mandatory ISI",
+      "keywords": [
+        "packaged drinking water",
+        "bottled water",
+        "drinking water",
+        "bisleri",
+        "packaged water",
+        "water bottle water"
+      ]
+    },
+    "created_at": "2026-09-11T16:12:01.055060+00:00",
+    "updated_at": "2026-09-11T16:22:13.854527+00:00",
+    "category": "Food & Beverages"
+  },
+  "5eeb7959-2d69-491f-946d-3ff36b124dc5": {
+    "id": "5eeb7959-2d69-491f-946d-3ff36b124dc5",
+    "standard_number": "IS 13428:2005",
+    "title": "Packaged Natural Mineral Water — Specification",
+    "product": "Packaged Natural Mineral Water",
+    "document_type": "Indian Standard",
+    "version": "2005",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "FAD (Food & Agriculture)",
+      "certification_scheme": "Scheme I (ISI Mark - Mandatory)",
+      "mandatory": true,
+      "qco_order": "Mandatory Certification under FSSAI & BIS Act",
+      "keywords": [
+        "mineral water",
+        "natural mineral water",
+        "spring water"
+      ]
+    },
+    "created_at": "2026-09-11T16:12:01.525496+00:00",
+    "updated_at": "2026-09-11T16:22:14.589227+00:00",
+    "category": "Food & Beverages"
+  },
+  "1cc84bc2-3a6d-45e1-a863-bd2e1491e19f": {
+    "id": "1cc84bc2-3a6d-45e1-a863-bd2e1491e19f",
+    "standard_number": "IS 1165:2002",
+    "title": "Milk Powder — Specification",
+    "product": "Milk Powder",
+    "document_type": "Indian Standard",
+    "version": "2002",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "FAD (Food & Agriculture)",
+      "certification_scheme": "Scheme I (ISI Mark - Mandatory)",
+      "mandatory": true,
+      "qco_order": "Milk and Milk Products Order / Mandatory ISI",
+      "keywords": [
+        "milk powder",
+        "dairy powder",
+        "infant milk powder",
+        "skimmed milk powder"
+      ]
+    },
+    "created_at": "2026-09-11T16:12:02.005772+00:00",
+    "updated_at": "2026-09-11T16:22:15.303729+00:00",
+    "category": "Dairy Products"
+  },
+  "98421c2e-1f37-4e47-853d-4035ae314ac8": {
+    "id": "98421c2e-1f37-4e47-853d-4035ae314ac8",
+    "standard_number": "IS 14433:2007",
+    "title": "Infant Milk Substitutes — Specification",
+    "product": "Infant Milk Substitutes / Baby Food",
+    "document_type": "Indian Standard",
+    "version": "2007",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "FAD (Food & Agriculture)",
+      "certification_scheme": "Scheme I (ISI Mark - Mandatory)",
+      "mandatory": true,
+      "qco_order": "Infant Milk Substitutes Act / Mandatory ISI",
+      "keywords": [
+        "baby food",
+        "infant food",
+        "cerelac",
+        "infant formula",
+        "baby milk"
+      ]
+    },
+    "created_at": "2026-09-11T16:12:02.530482+00:00",
+    "updated_at": "2026-09-11T16:22:16.066041+00:00",
+    "category": "Dairy & Infant Nutrition"
+  },
+  "e513a328-aeda-47a2-a0aa-d9babbe4b80a": {
+    "id": "e513a328-aeda-47a2-a0aa-d9babbe4b80a",
+    "standard_number": "IS 269:2015",
+    "title": "Ordinary Portland Cement — Specification (33, 43 and 53 Grade)",
+    "product": "Ordinary Portland Cement (OPC 33, 43, 53)",
+    "document_type": "Indian Standard",
+    "version": "2015",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "CED (Civil Engineering)",
+      "certification_scheme": "Scheme I (ISI Mark - Mandatory)",
+      "mandatory": true,
+      "qco_order": "Cement (Quality Control) Order",
+      "keywords": [
+        "cement",
+        "opc cement",
+        "portland cement",
+        "53 grade cement",
+        "43 grade cement",
+        "concrete cement"
+      ]
+    },
+    "created_at": "2026-09-11T16:12:03.045077+00:00",
+    "updated_at": "2026-09-11T16:22:16.805923+00:00",
+    "category": "Construction Materials"
+  },
+  "530bc28e-9d18-4a8a-9c5b-ffc628771eb5": {
+    "id": "530bc28e-9d18-4a8a-9c5b-ffc628771eb5",
+    "standard_number": "IS 456:2000",
+    "title": "Plain and Reinforced Concrete — Code of Practice",
+    "product": "Plain and Reinforced Concrete (RCC)",
+    "document_type": "Indian Standard",
+    "version": "2000",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "CED (Civil Engineering)",
+      "certification_scheme": "National Building Code Baseline",
+      "mandatory": true,
+      "qco_order": "Mandatory in Indian National Building Code (NBC)",
+      "keywords": [
+        "concrete",
+        "rcc",
+        "reinforced concrete",
+        "plain concrete",
+        "beam design",
+        "column design",
+        "slab"
+      ]
+    },
+    "created_at": "2026-09-11T16:12:03.526618+00:00",
+    "updated_at": "2026-09-11T16:22:17.504506+00:00",
+    "category": "Structural Engineering"
+  },
+  "37daec83-8d39-4544-ae25-b7875e121758": {
+    "id": "37daec83-8d39-4544-ae25-b7875e121758",
+    "standard_number": "IS 303:1989",
+    "title": "Plywood for General Purposes — Specification",
+    "product": "Plywood (Commercial / Moisture Resistant)",
+    "document_type": "Indian Standard",
+    "version": "1989",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "CED (Civil Engineering)",
+      "certification_scheme": "Scheme I (ISI Mark - Mandatory)",
+      "mandatory": true,
+      "qco_order": "Wood Based Boards (Quality Control) Order",
+      "keywords": [
+        "plywood",
+        "ply",
+        "commercial ply",
+        "mr grade ply",
+        "wooden board"
+      ]
+    },
+    "created_at": "2026-09-11T16:12:04.054414+00:00",
+    "updated_at": "2026-09-11T16:22:18.318838+00:00",
+    "category": "Wood & Timber Products / Construction"
+  },
+  "616d74ca-b0fc-4b55-91da-75c083991188": {
+    "id": "616d74ca-b0fc-4b55-91da-75c083991188",
+    "standard_number": "IS 4985:2021",
+    "title": "Unplasticized Polyvinyl Chloride (uPVC) Pipes for Potable Water Supplies",
+    "product": "uPVC Pipes for Water Supply",
+    "document_type": "Indian Standard",
+    "version": "2021",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "CED (Civil Engineering)",
+      "certification_scheme": "Scheme I (ISI Mark - Mandatory)",
+      "mandatory": true,
+      "qco_order": "PVC Pipes (Quality Control) Order",
+      "keywords": [
+        "pvc pipe",
+        "upvc pipe",
+        "water pipe",
+        "plumbing pipe",
+        "potable water pipe"
+      ]
+    },
+    "created_at": "2026-09-11T16:12:04.548991+00:00",
+    "updated_at": "2026-09-11T16:22:19.023196+00:00",
+    "category": "Plumbing & Piping"
+  },
+  "de4dbea3-23e0-4498-92a0-0446a7e8d5d6": {
+    "id": "de4dbea3-23e0-4498-92a0-0446a7e8d5d6",
+    "standard_number": "IS 1786:2008",
+    "title": "High Strength Deformed Steel Bars and Wires for Concrete Reinforcement (TMT Steel Bars)",
+    "product": "TMT Steel Bars / Saria",
+    "document_type": "Indian Standard",
+    "version": "2008",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "MTD (Metallurgical Engineering)",
+      "certification_scheme": "Scheme I (ISI Mark - Mandatory)",
+      "mandatory": true,
+      "qco_order": "Steel and Steel Products (Quality Control) Order",
+      "keywords": [
+        "tmt bar",
+        "tmt steel",
+        "saria",
+        "reinforcement steel",
+        "deformed bar",
+        "fe 500",
+        "fe 550",
+        "steel rebar"
+      ]
+    },
+    "created_at": "2026-09-11T16:12:05.020899+00:00",
+    "updated_at": "2026-09-11T16:22:19.765701+00:00",
+    "category": "Steel & Metallurgy"
+  },
+  "29b02190-5508-4084-bd87-5b9cf25c9e9e": {
+    "id": "29b02190-5508-4084-bd87-5b9cf25c9e9e",
+    "standard_number": "IS 2062:2011",
+    "title": "Hot Rolled Medium and High Tensile Structural Steel — Specification",
+    "product": "Structural Steel (Beams, Channels, Angles, Plates)",
+    "document_type": "Indian Standard",
+    "version": "2011",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "MTD (Metallurgical Engineering)",
+      "certification_scheme": "Scheme I (ISI Mark - Mandatory)",
+      "mandatory": true,
+      "qco_order": "Ministry of Steel Quality Control Order",
+      "keywords": [
+        "structural steel",
+        "steel beam",
+        "girders",
+        "steel angles",
+        "steel plates",
+        "hot rolled steel"
+      ]
+    },
+    "created_at": "2026-09-11T16:12:05.514930+00:00",
+    "updated_at": "2026-09-11T16:22:20.532923+00:00",
+    "category": "Steel & Metallurgy"
+  },
+  "582e2f45-06d9-4e86-9997-33c401d7f2d8": {
+    "id": "582e2f45-06d9-4e86-9997-33c401d7f2d8",
+    "standard_number": "IS 277:2018",
+    "title": "Galvanized Steel Sheets (Plain and Corrugated) — Specification",
+    "product": "Galvanized Steel Sheets (Tin Roofing)",
+    "document_type": "Indian Standard",
+    "version": "2018",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "MTD (Metallurgical Engineering)",
+      "certification_scheme": "Scheme I (ISI Mark - Mandatory)",
+      "mandatory": true,
+      "qco_order": "Steel Sheets Quality Control Order",
+      "keywords": [
+        "galvanized sheet",
+        "tin sheet",
+        "corrugated sheet",
+        "roofing sheet",
+        "gi sheet"
+      ]
+    },
+    "created_at": "2026-09-11T16:12:06.046452+00:00",
+    "updated_at": "2026-09-11T16:22:21.236222+00:00",
+    "category": "Steel & Metallurgy"
+  },
+  "11ed0d56-d8f7-4a12-8be2-96a90ec25f31": {
+    "id": "11ed0d56-d8f7-4a12-8be2-96a90ec25f31",
+    "standard_number": "IS 9873 (Part 1):2019",
+    "title": "Safety of Toys — Part 1: Safety Aspects Related to Mechanical and Physical Properties",
+    "product": "Children Toys (Mechanical and Physical Safety)",
+    "document_type": "Indian Standard",
+    "version": "2019",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "CHD (Chemical)",
+      "certification_scheme": "Scheme I (ISI Mark - Mandatory)",
+      "mandatory": true,
+      "qco_order": "Toys (Quality Control) Order, 2020",
+      "keywords": [
+        "toys",
+        "children toys",
+        "plastic toys",
+        "dolls",
+        "action figures",
+        "stuffed toys"
+      ]
+    },
+    "created_at": "2026-09-11T16:12:07.435055+00:00",
+    "updated_at": "2026-09-11T16:22:21.994113+00:00",
+    "category": "Toys & Child Safety"
+  },
+  "54f1431c-0066-4695-82eb-9297b815a526": {
+    "id": "54f1431c-0066-4695-82eb-9297b815a526",
+    "standard_number": "IS 2888:2004",
+    "title": "Toilet Soap — Specification",
+    "product": "Toilet Soap / Bathing Soap",
+    "document_type": "Indian Standard",
+    "version": "2004",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "CHD (Chemical)",
+      "certification_scheme": "Scheme I (Voluntary / ISI available)",
+      "mandatory": false,
+      "keywords": [
+        "soap",
+        "toilet soap",
+        "bathing soap",
+        "beauty soap",
+        "tfm in soap"
+      ]
+    },
+    "created_at": "2026-09-11T16:12:08.004577+00:00",
+    "updated_at": "2026-09-11T16:22:22.689935+00:00",
+    "category": "Personal Care"
+  },
+  "1d2f887e-be63-4638-ab79-60388233dcd5": {
+    "id": "1d2f887e-be63-4638-ab79-60388233dcd5",
+    "standard_number": "IS 17424:2020",
+    "title": "Hand Sanitizer (Alcohol Based) — Specification",
+    "product": "Alcohol Based Hand Sanitizer",
+    "document_type": "Indian Standard",
+    "version": "2020",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "CHD (Chemical)",
+      "certification_scheme": "Scheme I (ISI Mark - Recognized)",
+      "mandatory": false,
+      "keywords": [
+        "sanitizer",
+        "hand sanitizer",
+        "alcohol sanitizer",
+        "disinfectant rub"
+      ]
+    },
+    "created_at": "2026-09-11T16:12:08.770830+00:00",
+    "updated_at": "2026-09-11T16:22:23.720514+00:00",
+    "category": "Personal Hygiene / Healthcare"
+  },
+  "adbbbc7d-13b7-4bcb-93af-18fc2450f2b6": {
+    "id": "adbbbc7d-13b7-4bcb-93af-18fc2450f2b6",
+    "standard_number": "IS 1460:2017",
+    "title": "Automotive Diesel Fuel — Specification (BS VI)",
+    "product": "Automotive Diesel Fuel",
+    "document_type": "Indian Standard",
+    "version": "2017",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "PCD (Petroleum, Coal and Related Products)",
+      "certification_scheme": "Statutory Bharat Stage VI Mandatory Compliance",
+      "mandatory": true,
+      "qco_order": "Ministry of Petroleum & Natural Gas BS VI Emission Norms",
+      "keywords": [
+        "diesel",
+        "automotive diesel",
+        "high speed diesel",
+        "hsd",
+        "diesel fuel",
+        "cetane number"
+      ]
+    },
+    "created_at": "2026-09-11T16:12:09.276072+00:00",
+    "updated_at": "2026-09-11T16:22:24.429858+00:00",
+    "category": "Petroleum Fuels"
+  },
+  "39c43d6e-0d3c-4782-8eb3-84c374373d2d": {
+    "id": "39c43d6e-0d3c-4782-8eb3-84c374373d2d",
+    "standard_number": "IS 2796:2017",
+    "title": "Motor Gasoline — Specification (BS VI and Ethanol Blended E10, E20)",
+    "product": "Motor Gasoline (Petrol)",
+    "document_type": "Indian Standard",
+    "version": "2017",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "PCD (Petroleum, Coal and Related Products)",
+      "certification_scheme": "Statutory Bharat Stage VI Mandatory Compliance",
+      "mandatory": true,
+      "qco_order": "Ministry of Petroleum & Natural Gas Ethanol Blending Norms",
+      "keywords": [
+        "petrol",
+        "gasoline",
+        "motor spirit",
+        "e20 petrol",
+        "octane",
+        "ron 91",
+        "ron 95"
+      ]
+    },
+    "created_at": "2026-09-11T16:12:09.737325+00:00",
+    "updated_at": "2026-09-11T16:22:25.146830+00:00",
+    "category": "Petroleum Fuels"
+  },
+  "4b20466d-23ae-4b21-ac89-60177bb63009": {
+    "id": "4b20466d-23ae-4b21-ac89-60177bb63009",
+    "standard_number": "IS 4576:1999",
+    "title": "Liquefied Petroleum Gases — Specification",
+    "product": "Liquefied Petroleum Gas (LPG Fuel)",
+    "document_type": "Indian Standard",
+    "version": "1999",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "PCD (Petroleum, Coal and Related Products)",
+      "certification_scheme": "Mandatory Petroleum Product Standard",
+      "mandatory": true,
+      "keywords": [
+        "lpg",
+        "cooking gas",
+        "liquefied petroleum gas",
+        "propane butane"
+      ]
+    },
+    "created_at": "2026-09-11T16:12:10.244425+00:00",
+    "updated_at": "2026-09-11T16:22:25.868467+00:00",
+    "category": "Petroleum Fuels"
+  },
+  "25fb3395-e8dd-470b-88a8-d56976256507": {
+    "id": "25fb3395-e8dd-470b-88a8-d56976256507",
+    "standard_number": "IS 1417:2016",
+    "title": "Gold and Gold Alloys, Jewellery/Artefacts — Fineness and Marking",
+    "product": "Gold Jewellery and Artefacts (Hallmarking)",
+    "document_type": "Indian Standard",
+    "version": "2016",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "HMD (Hallmarking)",
+      "certification_scheme": "Mandatory Gold Hallmarking Order (HUID)",
+      "mandatory": true,
+      "qco_order": "Hallmarking of Gold Jewellery and Gold Artefacts Order",
+      "keywords": [
+        "gold",
+        "gold jewellery",
+        "hallmark",
+        "huid",
+        "22k gold",
+        "18k gold",
+        "14k gold",
+        "gold purity"
+      ]
+    },
+    "created_at": "2026-09-11T16:12:10.690194+00:00",
+    "updated_at": "2026-09-11T16:22:26.609622+00:00",
+    "category": "Precious Metals / Jewellery"
+  },
+  "fd4dbc83-0b2c-4d39-9f79-d39e9eeca5d8": {
+    "id": "fd4dbc83-0b2c-4d39-9f79-d39e9eeca5d8",
+    "standard_number": "IS 2112:2014",
+    "title": "Silver and Silver Alloys, Jewellery/Artefacts — Fineness and Marking",
+    "product": "Silver Jewellery and Artefacts",
+    "document_type": "Indian Standard",
+    "version": "2014",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "HMD (Hallmarking)",
+      "certification_scheme": "Silver Hallmarking Scheme",
+      "mandatory": false,
+      "keywords": [
+        "silver",
+        "silver jewellery",
+        "silver hallmark",
+        "chandi",
+        "silver utensils"
+      ]
+    },
+    "created_at": "2026-09-11T16:12:11.193177+00:00",
+    "updated_at": "2026-09-11T16:22:27.402774+00:00",
+    "category": "Precious Metals / Jewellery"
+  },
+  "670bb047-cc9e-4d8c-84cf-9946cf368308": {
+    "id": "670bb047-cc9e-4d8c-84cf-9946cf368308",
+    "standard_number": "IS 3055 (Part 1):1994",
+    "title": "Clinical Thermometers — Specification",
+    "product": "Clinical Thermometers",
+    "document_type": "Indian Standard",
+    "version": "1994",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "MHD (Medical Equipment)",
+      "certification_scheme": "Scheme I (ISI Mark - Mandatory)",
+      "mandatory": true,
+      "qco_order": "Medical Devices Quality Control Order",
+      "keywords": [
+        "thermometer",
+        "clinical thermometer",
+        "digital thermometer",
+        "body temperature"
+      ]
+    },
+    "created_at": "2026-09-11T16:12:11.721471+00:00",
+    "updated_at": "2026-09-11T16:22:28.062026+00:00",
+    "category": "Medical Devices"
+  },
+  "809db769-25ff-4253-b417-79979ff83aab": {
+    "id": "809db769-25ff-4253-b417-79979ff83aab",
+    "standard_number": "IS 4148:1989",
+    "title": "Surgical Rubber Gloves — Specification",
+    "product": "Surgical Gloves / Examination Gloves",
+    "document_type": "Indian Standard",
+    "version": "1989",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "MHD (Medical Equipment)",
+      "certification_scheme": "Scheme I (ISI Mark - Mandatory)",
+      "mandatory": true,
+      "qco_order": "Surgical Rubber Gloves (Quality Control) Order",
+      "keywords": [
+        "surgical gloves",
+        "medical gloves",
+        "rubber gloves",
+        "latex gloves"
+      ]
+    },
+    "created_at": "2026-09-11T16:12:12.331629+00:00",
+    "updated_at": "2026-09-11T16:22:28.716955+00:00",
+    "category": "Medical Consumables"
+  },
+  "e724fffa-bfe7-4403-8cf1-a80386f3e840": {
+    "id": "e724fffa-bfe7-4403-8cf1-a80386f3e840",
+    "standard_number": "IS 9473:2002",
+    "title": "Respiratory Protective Devices — Filtering Half Masks to Protect Against Particles",
+    "product": "Respiratory Face Masks (N95 / FFP2 / FFP3)",
+    "document_type": "Indian Standard",
+    "version": "2002",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "TXD (Textiles)",
+      "certification_scheme": "Scheme I (ISI Mark - Recognized)",
+      "mandatory": true,
+      "qco_order": "Protective Textiles (Quality Control) Order",
+      "keywords": [
+        "mask",
+        "n95 mask",
+        "face mask",
+        "filtering mask",
+        "respiratory mask",
+        "ffp2 mask"
+      ]
+    },
+    "created_at": "2026-09-11T16:12:12.941816+00:00",
+    "updated_at": "2026-09-11T16:22:29.532310+00:00",
+    "category": "Protective Equipment / Textiles"
+  },
+  "b606f7d5-142c-4b8f-bec9-0a6e9236065f": {
+    "id": "b606f7d5-142c-4b8f-bec9-0a6e9236065f",
+    "standard_number": "IS 11004 (Part 1):2021",
+    "title": "Male Condoms — Specification — Part 1: Condoms Made from Natural Rubber Latex",
+    "product": "Male Latex Condoms",
+    "document_type": "Indian Standard",
+    "version": "2021",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "MHD (Medical Equipment & Hospital Planning)",
+      "certification_scheme": "Scheme I (ISI Mark - Mandatory under Drugs and Cosmetics Act)",
+      "mandatory": true,
+      "qco_order": "Medical Devices and Contraceptives Regulatory Standards",
+      "keywords": [
+        "condom",
+        "condoms",
+        "male condom",
+        "latex condom",
+        "contraceptive",
+        "rubber condom",
+        "nirodh",
+        "male latex condoms"
+      ]
+    },
+    "created_at": "2026-09-11T16:38:45.708828+00:00",
+    "updated_at": "2026-09-11T16:38:48.251404+00:00",
+    "category": "Medical Devices / Contraceptives"
+  },
+  "9d822141-7486-43ce-b914-b4bd1b04bb92": {
+    "id": "9d822141-7486-43ce-b914-b4bd1b04bb92",
+    "standard_number": "IS 6356:2001",
+    "title": "Toothpaste — Specification",
+    "product": "Toothpaste",
+    "document_type": "Indian Standard",
+    "version": "2001",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "CHD (Chemical)",
+      "certification_scheme": "Scheme I (ISI Mark - Recognized Quality Standard)",
+      "mandatory": false,
+      "keywords": [
+        "toothpaste",
+        "oral hygiene",
+        "dental cream",
+        "tooth paste",
+        "dentifrice"
+      ]
+    },
+    "created_at": "2026-09-11T16:38:47.580513+00:00",
+    "updated_at": "2026-09-11T16:38:49.938526+00:00",
+    "category": "Personal Care / Oral Hygiene"
+  },
+  "0416ef9a-3aa0-4ed9-ae35-989c145f51ee": {
+    "id": "0416ef9a-3aa0-4ed9-ae35-989c145f51ee",
+    "standard_number": "IS 15298 (Part 2):2016",
+    "title": "Personal Protective Equipment — Part 2: Safety Footwear",
+    "product": "Safety Shoes / Industrial Footwear",
+    "document_type": "Indian Standard",
+    "version": "2016",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "CHD (Chemical / Leather & Footwear)",
+      "certification_scheme": "Scheme I (ISI Mark - Mandatory)",
+      "mandatory": true,
+      "qco_order": "Footwear made from Leather and other materials (Quality Control) Order",
+      "keywords": [
+        "shoes",
+        "safety shoes",
+        "footwear",
+        "safety boots",
+        "industrial footwear",
+        "leather shoes",
+        "boots"
+      ]
+    },
+    "created_at": "2026-09-11T16:38:48.665215+00:00",
+    "updated_at": "2026-09-11T16:38:50.963676+00:00",
+    "category": "Protective Equipment / Footwear"
+  },
+  "395e66a5-fbac-4cd1-83b4-f730bf86bd22": {
+    "id": "395e66a5-fbac-4cd1-83b4-f730bf86bd22",
+    "standard_number": "IS 15683:2018",
+    "title": "Portable Fire Extinguishers — Performance and Construction — Specification",
+    "product": "Portable Fire Extinguisher",
+    "document_type": "Indian Standard",
+    "version": "2018",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "CED (Civil Engineering)",
+      "certification_scheme": "Scheme I (ISI Mark - Mandatory)",
+      "mandatory": true,
+      "qco_order": "Fire Extinguishers (Quality Control) Order",
+      "keywords": [
+        "fire extinguisher",
+        "fire safety",
+        "abc extinguisher",
+        "co2 extinguisher",
+        "extinguisher"
+      ]
+    },
+    "created_at": "2026-09-11T16:38:49.710771+00:00",
+    "updated_at": "2026-09-11T16:38:52.204075+00:00",
+    "category": "Fire Safety / Safety Equipment"
+  },
+  "97879277-b5a3-484a-a698-9e93026f08d2": {
+    "id": "97879277-b5a3-484a-a698-9e93026f08d2",
+    "standard_number": "IS 14286:2010",
+    "title": "Crystalline Silicon Terrestrial Photovoltaic (PV) Modules — Design Qualification and Type Approval",
+    "product": "Solar Panels / PV Modules",
+    "document_type": "Indian Standard",
+    "version": "2010",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "ETD (Electrotechnical)",
+      "certification_scheme": "Scheme II (CRS - Compulsory Registration Scheme)",
+      "mandatory": true,
+      "qco_order": "MNRE Solar Photovoltaics, Systems, Devices and Components Goods Order",
+      "keywords": [
+        "solar panel",
+        "solar module",
+        "pv module",
+        "solar pv",
+        "photovoltaic",
+        "solar cell"
+      ]
+    },
+    "created_at": "2026-09-11T16:38:51.003124+00:00",
+    "updated_at": "2026-09-11T16:38:53.259209+00:00",
+    "category": "Renewable Energy / Solar Equipment"
+  },
+  "200d2dc2-e659-40fa-8f90-8819eb96800d": {
+    "id": "200d2dc2-e659-40fa-8f90-8819eb96800d",
+    "standard_number": "IS 15622:2017",
+    "title": "Pressed Ceramic Tiles — Specification",
+    "product": "Ceramic Tiles / Vitrified Tiles",
+    "document_type": "Indian Standard",
+    "version": "2017",
+    "status": "Published",
+    "source_url": null,
+    "file_path": null,
+    "file_checksum": null,
+    "ingestion_status": "pending",
+    "metadata": {
+      "division": "CED (Civil Engineering)",
+      "certification_scheme": "Scheme I (ISI Mark - Mandatory)",
+      "mandatory": true,
+      "qco_order": "Ceramic Tiles (Quality Control) Order",
+      "keywords": [
+        "tiles",
+        "ceramic tiles",
+        "vitrified tiles",
+        "floor tiles",
+        "wall tiles"
+      ]
+    },
+    "created_at": "2026-09-11T16:38:52.540715+00:00",
+    "updated_at": "2026-09-11T16:38:54.861721+00:00",
+    "category": "Building Materials / Flooring"
+  }
+}

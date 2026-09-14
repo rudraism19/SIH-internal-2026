@@ -1,0 +1,13 @@
+{
+  "started_at": "2026-09-12T17:02:50.133872Z",
+  "completed_at": "2026-09-12T17:02:55.705668Z",
+  "discovered": 5,
+  "public_downloadable": 5,
+  "downloaded": 0,
+  "duplicates": 0,
+  "requires_manual_access": 0,
+  "failed": 0,
+  "ingested": 0,
+  "indexed": 0,
+  "dry_run": true
+}

@@ -1,0 +1,180 @@
+:root {
+  /* BIS Brand & Compliance Design System */
+  --primary-navy: #0B1F33;
+  --primary-navy-hover: #153252;
+  --navy-light-bg: #F0F4F8;
+  --navy-subtle: #E2E8F0;
+
+  --bis-red: #B42318;
+  --bis-red-hover: #912018;
+  --bis-red-light: #FEF3F2;
+  --bis-red-border: #FECDCA;
+
+  --saffron: #E87500;
+  --saffron-light: #FFF4E5;
+  --saffron-border: #FEDF89;
+
+  --success-green: #087443;
+  --success-green-hover: #065F36;
+  --success-green-light: #EDF7ED;
+  --success-green-border: #A6F4C5;
+
+  --warm-bg: #F7F7F5;
+  --white: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface-color: #FFFFFF;
+  --border-color: #D0D5DD;
+  --card-subtle-bg: #FAFAFA;
+  --hover-subtle-bg: #F2F4F7;
+
+  --primary-text: #101828;
+  --secondary-text: #667085;
+  --muted-text: #98A2B3;
+
+  --border: #D0D5DD;
+  --border-light: #EAECF0;
+  --border-focus: #155EEF;
+
+  --action-blue: #155EEF;
+  --action-blue-hover: #175CD3;
+  --action-blue-light: #EFF8FF;
+  --action-blue-border: #B2DDFF;
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --shadow-xs: 0 1px 2px rgba(16, 24, 40, 0.05);
+  --shadow-sm: 0 1px 3px rgba(16, 24, 40, 0.1), 0 1px 2px rgba(16, 24, 40, 0.06);
+  --shadow-md: 0 4px 8px -2px rgba(16, 24, 40, 0.1), 0 2px 4px -2px rgba(16, 24, 40, 0.06);
+  --shadow-lg: 0 12px 16px -4px rgba(16, 24, 40, 0.08), 0 4px 6px -2px rgba(16, 24, 40, 0.03);
+
+  font-family: var(--font-sans);
+  color: var(--primary-text);
+  background-color: var(--warm-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[data-theme="dark"] {
+  --primary-navy: #93C5FD;
+  --primary-navy-hover: #BFDBFE;
+  --navy-light-bg: #1E293B;
+  --navy-subtle: #334155;
+
+  --bis-red: #F87171;
+  --bis-red-hover: #EF4444;
+  --bis-red-light: rgba(239, 68, 68, 0.15);
+  --bis-red-border: rgba(239, 68, 68, 0.35);
+
+  --saffron: #FB923C;
+  --saffron-light: rgba(249, 115, 22, 0.15);
+  --saffron-border: rgba(249, 115, 22, 0.35);
+
+  --success-green: #4ADE80;
+  --success-green-hover: #22C55E;
+  --success-green-light: rgba(34, 197, 94, 0.15);
+  --success-green-border: rgba(34, 197, 94, 0.35);
+
+  --warm-bg: #0B132B;
+  --white: #162036;
+  --surface: #162036;
+  --surface-color: #162036;
+  --border-color: #2D3B55;
+  --card-subtle-bg: #111A2E;
+  --hover-subtle-bg: #1A263E;
+
+  --primary-text: #F8FAFC;
+  --secondary-text: #94A3B8;
+  --muted-text: #64748B;
+
+  --border: #2D3B55;
+  --border-light: #1E293B;
+  --border-focus: #38BDF8;
+
+  --action-blue: #38BDF8;
+  --action-blue-hover: #60A5FA;
+  --action-blue-light: rgba(56, 189, 248, 0.15);
+  --action-blue-border: rgba(56, 189, 248, 0.35);
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 8px -2px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 12px 16px -4px rgba(0, 0, 0, 0.6), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+html, body {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  overflow: hidden;
+  overflow-x: hidden;
+  background-color: var(--warm-bg);
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--primary-text);
+  transition: background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  overflow: hidden;
+  overflow-x: hidden;
+  background-color: var(--warm-bg);
+  transition: background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Custom Scrollbar - Professional Slim & Adaptive */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-text);
+}
+
+::selection {
+  background: rgba(21, 94, 239, 0.2);
+  color: var(--primary-navy);
+}
+
+code, kbd, samp, pre {
+  font-family: var(--font-mono);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+input, textarea, select {
+  font-family: inherit;
+}

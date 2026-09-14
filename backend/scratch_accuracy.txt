@@ -1,0 +1,56 @@
+Here is a gap analysis comparing your current system against the **8 Expected Solutions** and background requirements defined in your problem statement:
+
+---
+
+### Executive Scorecard: Current vs. Expected Solution
+
+| # | Expected Requirement | Current Status | Assessment |
+|---|---|---|---|
+| **1** | **Answer questions related to Indian Standards** | **Completed** | Full RAG pipeline with Supabase pgvector, clause-level chunks, citations. |
+| **2** | **Recommend applicable standards based on product** | **Completed** | Fast-path & semantic matching (`IS 2347`, `IS 4151`, `IS 1460`, `IS 2888`, etc.). |
+| **3** | **Provide guidance on BIS certification schemes** | **Completed** | Scheme-I (ISI Mark), Scheme-II (CRS), FMCS, voluntary vs. mandatory QCOs. |
+| **4** | **Explain certification processes** | **Completed** | 6-step conformity procedure, Form-VI renewals, marking fees, stop-marking. |
+| **5** | **Answer consumer-related queries** | ⚠️ **PARTIALLY MISSING** | System is heavily tailored for **manufacturers/importers**. Missing consumer complaint filing, fake/spurious ISI detection, and BIS Care app verification. |
+| **6** | **Guide users regarding hallmarking** | ❌ **COMPLETELY MISSING** | Explicitly mandated in the problem statement. No gold/silver hallmarking (`IS 1417`), 6-digit HUID, or purity grade intelligence. |
+| **7** | **Suggest relevant testing laboratories** | **Completed** | NABL & BIS Central/Regional Lab network with test parameters and turnaround times. |
+| **8** | **Support multilingual interaction** | ⚠️ **PARTIALLY MISSING** | Backend has a `language` field, but lacks dedicated multilingual prompts, automatic language auto-switching (Hindi, regional), and localized predefined responses. |
+
+---
+
+### The 3 Major Missing Pillars
+
+```
+                     ┌────────────────────────────────────────────────────────┐
+                     │            Official BIS Problem S
+<truncated 3188 bytes>
+: Statutory compensation for non-conforming standard marked goods under the BIS Act, 2016.
+  * National Consumer Helpline integration (`1915`) and e-BIS complaint portal.
+* **Standards Clubs & Students**:
+  * BIS initiative for schools/colleges to promote science and quality standards among students.
+
+---
+
+### Gap 3: True End-to-End Multilingual Interaction
+The problem statement requires: *"Support multilingual interaction."*
+
+* **Query Language Auto-Detection**:
+  * If a user asks in Hindi (*"सोने के गहनों पर हॉलमार्क कैसे चेक करें?"* or *"प्रेशर कुकर का लाइसेंस कैसे रिन्यू करें?"*), the system should detect Hindi automatically without manual configuration.
+* **Localized Fast-Path & Structured Answers**:
+  * Predefined fast-path responses currently exist primarily in English. We need multilingual intent mapping and native responses (starting with Hindi + English, extensible to regional languages).
+* **Gemini Grounding in Target Language**:
+  * Prompt instructions to output answers naturally in the detected query language while preserving official standard codes (`IS 2347`, `IS 1417`).
+
+---
+
+### Recommended Next Steps
+
+To make your project 100% compliant with the problem statement, here is the suggested order:
+
+1. **Implement Hallmarking & HUID Engine (Gap 1)**:
+   * Build `hallmarking_service.py` covering `IS 1417`, purity grade mapping (22K916, 18K750, 14K585), 6-digit HUID structure, mandatory districts, and jeweller registration.
+2. **Implement Consumer Protection & BIS Care Verifier (Gap 2)**:
+   * Build `consumer_service.py` covering CML/R-number verification steps, fake ISI mark reporting, and consumer compensation under Section 19.
+3. **Implement Full Multilingual Capabilities (Gap 3)**:
+   * Enhance Groq & Gemini prompts for automatic language detection and Hindi/regional response generation.
+
+Would you like to start with **Step 1: The Hallmarking & HUID Intelligence Engine**?
