@@ -4,16 +4,38 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BIS ASSISTANT — Bureau of Indian Standards Compliance Platform</title>
+    <title>BIS Saarthi — Bureau of Indian Standards Compliance Platform</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      window.addEventListener('error', function(e) {
+        var errBox = document.getElementById('global-err-box');
+        if (!errBox) {
+          errBox = document.createElement('pre');
+          errBox.id = 'global-err-box';
+          errBox.style = 'position:fixed;top:0;left:0;right:0;bottom:0;background:#1a1a1a;color:#ff5555;padding:24px;z-index:9999999;font-size:14px;white-space:pre-wrap;overflow:auto;';
+          document.body.appendChild(errBox);
+        }
+        errBox.textContent += '\n[ERROR]: ' + (e.error ? (e.error.stack || e.error.message) : (e.message || String(e)));
+      });
+      window.addEventListener('unhandledrejection', function(e) {
+        var errBox = document.getElementById('global-err-box');
+        if (!errBox) {
+          errBox = document.createElement('pre');
+          errBox.id = 'global-err-box';
+          errBox.style = 'position:fixed;top:0;left:0;right:0;bottom:0;background:#1a1a1a;color:#ff5555;padding:24px;z-index:9999999;font-size:14px;white-space:pre-wrap;overflow:auto;';
+          document.body.appendChild(errBox);
+        }
+        errBox.textContent += '\n[REJECTION]: ' + (e.reason ? (e.reason.stack || e.reason.message || e.reason) : 'Unknown rejection');
+      });
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

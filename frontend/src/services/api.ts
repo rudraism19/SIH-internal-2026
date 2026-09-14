@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const API_BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? '' : 'http://127.0.0.1:8000');
 
 export interface PurityGrade {
   karat: string;
@@ -185,7 +185,8 @@ export async function sendMessage(
   enableVoice: boolean = false,
   voiceSpeaker: string = 'priya',
   conversationId: string | null = null,
-  signal?: AbortSignal
+  signal?: AbortSignal,
+  imageData?: string | null
 ): Promise<ChatResponse> {
   let response: Response;
 
@@ -213,6 +214,7 @@ export async function sendMessage(
         conversation_id: conversationId,
         enable_voice: enableVoice,
         voice_speaker: voiceSpeaker,
+        image_data: imageData || null,
       }),
     });
   } catch (err: unknown) {
@@ -221,7 +223,7 @@ export async function sendMessage(
     }
     const errorMsg = err instanceof Error ? err.message : String(err);
     throw new Error(
-      `Network error: Could not connect to BIS Assistant backend at ${API_BASE_URL}. Please ensure the backend server is running. (${errorMsg})`
+      `Network error: Could not connect to BIS Assistant backend at ${API_BASE_URL || 'http://127.0.0.1:8000'}. Please ensure the backend server is running. (${errorMsg})`
     );
   } finally {
     clearTimeout(timeoutId);
@@ -740,6 +742,280 @@ export async function validateDossierApplication(payload: {
       verified_at: new Date().toISOString(),
       error: String(err),
     };
+  }
+}
+
+// ─── SUPABASE AUTHENTICATION API ──────────────────────────────────────────
+
+export interface AuthUser {
+  id: string;
+  email: string;
+  full_name: string;
+  org_name?: string;
+  role?: string;
+  phone?: string;
+  user_metadata?: Record<string, any>;
+}
+
+export interface AuthResponse {
+  success: boolean;
+  access_token?: string;
+  refresh_token?: string;
+  token_type?: string;
+  expires_in?: number;
+  user?: AuthUser;
+  error?: string;
+  message?: string;
+  requires_verification?: boolean;
+  action_link?: string;
+  email_sent?: boolean;
+  email?: string;
+}
+
+function extractApiError(data: any, fallback: string): string {
+  if (!data) return fallback;
+  if (data.error && typeof data.error === 'object' && typeof data.error.message === 'string') {
+    return data.error.message;
+  }
+  if (typeof data.error === 'string') return data.error;
+  if (typeof data.detail === 'string') return data.detail;
+  if (typeof data.message === 'string') return data.message;
+  return fallback;
+}
+
+export async function authSignUp(payload: {
+  email: string;
+  password: string;
+  full_name?: string;
+  org_name?: string;
+  role?: string;
+}): Promise<AuthResponse> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/auth/signup`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      return {
+        success: false,
+        error: extractApiError(data, 'Registration failed'),
+        requires_verification: data.requires_verification,
+      };
+    }
+    return data;
+  } catch (err: any) {
+    console.error('Supabase Sign Up error:', err);
+    return { success: false, error: err.message || 'Unable to connect to authentication server' };
+  }
+}
+
+export async function authSignIn(email: string, password: string): Promise<AuthResponse> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      const isUnconfirmed = res.status === 403 || (data.detail && data.detail.toLowerCase().includes('verified'));
+      return {
+        success: false,
+        error: extractApiError(data, 'Invalid email or password'),
+        requires_verification: isUnconfirmed || data.requires_verification,
+        action_link: data.action_link,
+        email,
+      };
+    }
+    return data;
+  } catch (err: any) {
+    console.error('Supabase Sign In error:', err);
+    return { success: false, error: err.message || 'Unable to connect to authentication server' };
+  }
+}
+
+export async function authInstantActivate(email: string): Promise<AuthResponse> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/auth/instant-activate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      return { success: false, error: extractApiError(data, 'Activation failed') };
+    }
+    return data;
+  } catch (err: any) {
+    console.error('Instant activation error:', err);
+    return { success: false, error: err.message || 'Unable to connect to authentication server' };
+  }
+}
+
+export async function authResendVerification(email: string): Promise<{
+  success: boolean;
+  message?: string;
+  action_link?: string;
+  email_sent?: boolean;
+  error?: string;
+}> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/auth/resend-verification`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      return { success: false, error: extractApiError(data, 'Failed to resend verification link') };
+    }
+    return data;
+  } catch (err: any) {
+    return { success: false, error: err.message || 'Unable to connect to authentication server' };
+  }
+}
+
+export async function authGetCurrentUser(token: string): Promise<AuthResponse> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/auth/me`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      return { success: false, error: extractApiError(data, 'Session expired') };
+    }
+    return data;
+  } catch (err: any) {
+    return { success: false, error: err.message || 'Session verification failed' };
+  }
+}
+
+export async function authGoogleSignIn(payload: {
+  email: string;
+  full_name?: string;
+  role?: string;
+}): Promise<AuthResponse> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/auth/google`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      return { success: false, error: extractApiError(data, 'Google sign in failed') };
+    }
+    return data;
+  } catch (err: any) {
+    return { success: false, error: err.message || 'Google sign in connection error' };
+  }
+}
+
+export async function authSignOut(token?: string): Promise<void> {
+  try {
+    if (token) {
+      await fetch(`${API_BASE_URL}/api/auth/logout`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    }
+  } catch (err) {
+    console.debug('Sign out notice:', err);
+  }
+}
+
+export interface PhoneOtpSendResponse {
+  success: boolean;
+  message?: string;
+  phone?: string;
+  formatted_phone?: string;
+  otp?: string;
+  expires_in?: number;
+  error?: string;
+}
+
+export async function authSendPhoneOtp(phone: string): Promise<PhoneOtpSendResponse> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/auth/phone/send-otp`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phone }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      return { success: false, error: extractApiError(data, 'Failed to send OTP') };
+    }
+    return data;
+  } catch (err: any) {
+    return { success: false, error: err.message || 'Unable to connect to OTP service' };
+  }
+}
+
+export async function authVerifyPhoneOtp(payload: {
+  phone: string;
+  otp: string;
+  full_name?: string;
+}): Promise<AuthResponse> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/auth/phone/verify-otp`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      return { success: false, error: extractApiError(data, 'OTP verification failed') };
+    }
+    return data;
+  } catch (err: any) {
+    return { success: false, error: err.message || 'Unable to verify OTP' };
+  }
+}
+
+export async function authSendEmailOtp(email: string): Promise<PhoneOtpSendResponse> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/auth/email/send-otp`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      return { success: false, error: extractApiError(data, 'Failed to send Email OTP') };
+    }
+    return data;
+  } catch (err: any) {
+    return { success: false, error: err.message || 'Unable to connect to OTP service' };
+  }
+}
+
+export async function authVerifyEmailOtp(payload: {
+  email: string;
+  otp: string;
+  full_name?: string;
+}): Promise<AuthResponse> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/auth/email/verify-otp`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      return { success: false, error: extractApiError(data, 'Email OTP verification failed') };
+    }
+    return data;
+  } catch (err: any) {
+    return { success: false, error: err.message || 'Unable to verify Email OTP' };
   }
 }
 

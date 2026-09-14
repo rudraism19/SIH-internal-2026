@@ -277,8 +277,7 @@ class RetrievedEvidence(BaseModel):
 
 class ChatRequest(BaseModel):
     message: str = Field(
-        ...,
-        min_length=1,
+        default="",
         description="User question or query about Indian Standards / BIS services",
         examples=["What BIS standard applies to my stainless steel water bottle?"],
     )
@@ -301,6 +300,11 @@ class ChatRequest(BaseModel):
         default="priya",
         description="Target Sarvam AI voice speaker (e.g. 'priya', 'aditya', 'neha', 'rahul')",
         examples=["priya"],
+    )
+    image_data: Optional[str] = Field(
+        default=None,
+        description="Base64 encoded data URI or image bytes for multimodal analysis (e.g. ISI mark, label, BIS certificate)",
+        examples=[None],
     )
 
 

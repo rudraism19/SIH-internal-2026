@@ -5,9 +5,9 @@
 
 export const UI_TRANSLATIONS = {
   'en-IN': {
-    brandTitle: 'BIS ASSISTANT',
+    brandTitle: 'BIS SAARTHI AI',
     govBadge: 'GOV.IN',
-    brandSubtitle: 'Bureau of Indian Standards Assistant',
+    brandSubtitle: 'Bureau of Indian Standards Compliance Intelligence',
     brandPillars: 'Standards • Certification • Testing • Compliance',
     evidenceNote: 'Evidence-based BIS information • Multilingual voice enabled',
     resetBtn: 'Reset',
@@ -15,7 +15,7 @@ export const UI_TRANSLATIONS = {
     portalTitle: 'COMPLIANCE PORTAL',
     ministryBadge: 'Ministry of Consumer Affairs, GoI',
     nav: {
-      assistant: 'Assistant',
+      assistant: 'AI Chatbot (Saarthi)',
       standards: 'Standards',
       qco: 'QCO & Mandatory',
       testing: 'Testing',
@@ -95,9 +95,9 @@ export const UI_TRANSLATIONS = {
   },
 
   'hi-IN': {
-    brandTitle: 'बीआईएस सहायक',
+    brandTitle: 'बीआईएस सारथी AI',
     govBadge: 'GOV.IN',
-    brandSubtitle: 'भारतीय मानक ब्यूरो (BIS) डिजिटल सहायक',
+    brandSubtitle: 'भारतीय मानक ब्यूरो (BIS) अनुपालन प्रज्ञा मंच',
     brandPillars: 'मानक • प्रमाणन • परीक्षण • अनुपालन',
     evidenceNote: 'प्रमाण-आधारित बीआईएस जानकारी • बहुभाषी वॉयस सक्षम',
     resetBtn: 'रीसेट',
@@ -105,7 +105,7 @@ export const UI_TRANSLATIONS = {
     portalTitle: 'अनुपालन पोर्टल',
     ministryBadge: 'उपभोक्ता मामले मंत्रालय, भारत सरकार',
     nav: {
-      assistant: 'सहायक (AI)',
+      assistant: 'एआई सारथी चैट (Chatbot)',
       standards: 'मानक (Standards)',
       qco: 'QCO एवं अनिवार्य',
       testing: 'परीक्षण (Testing)',

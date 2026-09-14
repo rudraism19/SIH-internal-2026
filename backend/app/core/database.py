@@ -31,12 +31,62 @@ def get_supabase_client():
         _supabase_client = create_client(
             supabase_url,
             service_role_key,
-            options=ClientOptions(postgrest_client_timeout=30),
+            options=ClientOptions(
+                auto_refresh_token=False,
+                persist_session=False,
+                postgrest_client_timeout=30,
+            ),
         )
         logger.info(f"Supabase client initialized successfully for {supabase_url}")
         return _supabase_client
     except Exception as e:
         logger.error(f"Failed to initialize Supabase client: {e}", exc_info=True)
+        return None
+
+
+def get_supabase_admin_client():
+    """Returns an isolated Supabase admin client that always retains service_role privileges."""
+    supabase_url = settings.SUPABASE_URL
+    service_role_key = settings.SUPABASE_SERVICE_ROLE_KEY
+    if not supabase_url or not service_role_key:
+        return None
+
+    try:
+        from supabase import create_client, ClientOptions
+        return create_client(
+            supabase_url,
+            service_role_key,
+            options=ClientOptions(
+                auto_refresh_token=False,
+                persist_session=False,
+                postgrest_client_timeout=30,
+            ),
+        )
+    except Exception as e:
+        logger.error(f"Failed to initialize Supabase admin client: {e}")
+        return None
+
+
+def get_supabase_auth_client():
+    """Returns an isolated Supabase client for user credentials authentication without session side-effects."""
+    supabase_url = settings.SUPABASE_URL
+    service_role_key = settings.SUPABASE_SERVICE_ROLE_KEY
+    if not supabase_url or not service_role_key:
+        return None
+
+    try:
+        from supabase import create_client, ClientOptions
+        return create_client(
+            supabase_url,
+            service_role_key,
+            options=ClientOptions(
+                auto_refresh_token=False,
+                persist_session=False,
+                postgrest_client_timeout=30,
+            ),
+        )
+    except Exception as e:
+        logger.error(f"Failed to initialize Supabase auth client: {e}")
         return None
 
 

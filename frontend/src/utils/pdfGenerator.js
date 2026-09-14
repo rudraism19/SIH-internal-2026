@@ -969,7 +969,7 @@ function cleanMarkdownForPdf(rawText) {
 
 /**
  * Generates an official BIS Statutory Compliance Consultation & Advisory Transcript PDF.
- * Exports full multi-turn conversation thread between applicant and BIS Assistant.
+ * Exports full multi-turn conversation thread between applicant and BIS Saarthi.
  *
  * @param {Object} sessionData
  * @param {Array} sessionData.messages - Array of chat message objects
@@ -1250,7 +1250,7 @@ export function generateChatConsultationPdf(sessionData) {
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(8);
       doc.setTextColor(15, 41, 66);
-      doc.text('BIS ASSISTANT ADVISORY (STATUTORY EVIDENCE-GROUNDED):', margin, currentY);
+      doc.text('BIS SAARTHI ADVISORY (STATUTORY EVIDENCE-GROUNDED):', margin, currentY);
 
       // Grounded badge
       doc.setFillColor(237, 247, 237);

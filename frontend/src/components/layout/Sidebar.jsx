@@ -2,6 +2,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   MessageSquare,
+  History,
   FileText,
   ShieldCheck,
   FlaskConical,
@@ -18,7 +19,8 @@ import {
 import { getTranslations } from '../../constants/translations';
 
 const NAV_ITEMS = [
-  { id: 'assistant', label: 'Assistant', icon: MessageSquare },
+  { id: 'assistant', label: 'AI Chatbot (Saarthi)', icon: MessageSquare },
+  { id: 'chat_history', label: 'Chat History (सहेजे गए सत्र)', icon: History, isHistory: true },
   { id: 'standards', label: 'Standards', icon: FileText },
   { id: 'qco', label: 'QCO & Mandatory', icon: ShieldCheck },
   { id: 'testing', label: 'Testing', icon: FlaskConical },
@@ -36,10 +38,21 @@ export default function Sidebar({
   isOpen = false,
   onClose,
   selectedLanguage = 'en-IN',
+  sessionCount = 0,
+  onOpenChatHistory,
 }) {
   const t = getTranslations(selectedLanguage);
 
   const handleNavClick = (id) => {
+    if (id === 'chat_history') {
+      if (onOpenChatHistory) {
+        onOpenChatHistory();
+      } else if (onSelectNav) {
+        onSelectNav('assistant');
+      }
+      if (onClose) onClose();
+      return;
+    }
     if (onSelectNav) onSelectNav(id);
     if (onClose) onClose();
   };
@@ -66,10 +79,32 @@ export default function Sidebar({
         {/* Brand Header */}
         <div className="sidebar-brand">
           <div className="brand-logo-seal">
-            <span className="seal-emblem">🏛</span>
+            <div className="heritage-brand-crest-wrapper shrink-0" style={{ width: '34px', height: '34px' }}>
+              <svg
+                className="heritage-nav-brand-mark shrink-0"
+                width="18"
+                height="22"
+                viewBox="0 0 96 120"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                aria-hidden="true"
+              >
+                <ellipse cx="48" cy="60" rx="45" ry="57" />
+                <path d="M48 88V46" strokeLinecap="round" />
+                <path d="M48 58c-8-2-14-8-16-16 9 0 15 5 16 16Zm0 0c8-2 14-8 16-16-9 0-15 5-16 16Z" />
+                <path d="M48 74c-9-2-15-8-17-17 10 0 16 6 17 17Zm0 0c9-2 15-8 17-17-10 0-16 6-17 17Z" />
+                <path d="M48 46c-6-3-9-9-8-16 6 3 9 9 8 16Zm0 0c6-3 9-9 8-16-6 3-9 9-8 16Z" />
+                <path d="M30 44c-5 1-9-1-12-5 5-2 9-1 12 5Zm36 0c5 1 9-1 12-5-5-2-9-1-12 5Z" />
+              </svg>
+            </div>
             <div className="brand-text-col">
-              <span className="brand-sub">BIS</span>
-              <span className="brand-title">{t.brandTitle}</span>
+              <span className="brand-sub" style={{ color: 'var(--action-blue)', letterSpacing: '0.08em', fontWeight: 700 }}>
+                {selectedLanguage.startsWith('hi') ? 'बीआईएस सारथी' : 'BIS SAARTHI'}
+              </span>
+              <span className="brand-title" style={{ fontFamily: 'var(--font-heritage), Georgia, serif', fontSize: '15px' }}>
+                {t.brandTitle}
+              </span>
             </div>
           </div>
 
@@ -97,13 +132,16 @@ export default function Sidebar({
           <div className="nav-group-label">{t.portalTitle}</div>
           {NAV_ITEMS.map((item) => {
             const Icon = item.icon;
-            const isActive = activeNav === item.id;
-            const itemLabel = t.nav?.[item.id] || item.label;
+            const isChatHistory = item.id === 'chat_history';
+            const isActive = isChatHistory ? false : activeNav === item.id;
+            const itemLabel = isChatHistory
+              ? (selectedLanguage.startsWith('hi') ? 'चैट इतिहास (सत्र)' : 'Chat History')
+              : (t.nav?.[item.id] || item.label);
             return (
               <motion.button
                 key={item.id}
                 type="button"
-                className={`nav-link ${isActive ? 'active' : ''}`}
+                className={`nav-link ${isActive ? 'active' : ''} ${isChatHistory ? 'nav-link-history' : ''}`}
                 onClick={() => handleNavClick(item.id)}
                 whileHover={{ x: 3 }}
                 whileTap={{ scale: 0.98 }}
@@ -118,6 +156,9 @@ export default function Sidebar({
                 )}
                 <Icon size={18} className="nav-icon" />
                 <span className="nav-label">{itemLabel}</span>
+                {isChatHistory && sessionCount > 0 && (
+                  <span className="sidebar-history-count-badge">{sessionCount}</span>
+                )}
                 {isActive && (
                   <motion.span
                     layoutId="sidebarActivePill"

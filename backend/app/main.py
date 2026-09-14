@@ -45,7 +45,7 @@ async def lifespan(app: FastAPI):
 # Create FastAPI application
 app = FastAPI(
     title=settings.PROJECT_NAME,
-    description="FastAPI backend foundation for BIS Assistant (Indian Standards & BIS Services)",
+    description="FastAPI backend foundation for BIS Saarthi (Indian Standards & BIS Services)",
     version="0.2.0",
     docs_url="/docs",
     redoc_url="/redoc",

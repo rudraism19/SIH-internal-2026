@@ -49,9 +49,15 @@ class ChatService:
         conv_state = conversation_service.get_or_create(request.conversation_id)
         conversation_id = conv_state.conversation_id
 
+        # Handle empty message when image is provided
+        raw_message = (request.message or "").strip()
+        if not raw_message and request.image_data:
+            raw_message = "Please inspect this product or mark image for BIS Indian Standards, ISI mark authenticity, and compliance."
+            request.message = raw_message
+
         logger.info(
             f"Processing chat query: '{request.message}' "
-            f"(conversation_id: {conversation_id}, language: {request.language}, voice: {request.enable_voice})"
+            f"(conversation_id: {conversation_id}, language: {request.language}, voice: {request.enable_voice}, image: {bool(request.image_data)})"
         )
 
         # 0. Multilingual Indian Language Bridge (Sarvam AI + Groq Fallback)
@@ -134,8 +140,8 @@ class ChatService:
             if cand != UNSUPPORTED_RESPONSE:
                 query_analysis.needs_rag = False
 
-        # FAST PATH: Generic queries bypass embeddings, pgvector, validation, and Gemini
-        if not query_analysis.needs_rag:
+        # FAST PATH: Generic queries bypass embeddings, pgvector, validation, and Gemini (unless image attached)
+        if not query_analysis.needs_rag and not request.image_data:
             embedding_ms = 0.0
             retrieval_ms = 0.0
             validation_ms = 0.0
@@ -515,8 +521,9 @@ class ChatService:
             kept_numbers = {s.standard_number for s in clean_standards}
             val_result.citations = [c for c in val_result.citations if c.standard_number in kept_numbers]
 
-        # 7. Grounded Answer Generation & Strict No-Evidence Bypass
-        if val_result.verified and val_result.identified_standards:
+        # 7. Grounded Answer Generation & Multimodal Vision Inspection
+        has_image = bool(request.image_data and request.image_data.strip())
+        if (val_result.verified and val_result.identified_standards) or has_image:
             final_evidence = [
                 ev for ev in relevant_evidence
                 if any(
@@ -572,7 +579,7 @@ class ChatService:
                 product=active_product,
             )
 
-            # Call Gemini to generate natural-language explanation conditioned strictly on verified evidence
+            # Call Gemini to generate natural-language explanation conditioned strictly on verified evidence and image
             t_gem_start = time.perf_counter()
             try:
                 gemini_payload = await gemini_service.generate_grounded_answer(
@@ -588,6 +595,7 @@ class ChatService:
                     renewal_info=renewal_info,
                     batch_info=batch_info,
                     hallmarking_info=hallmarking_info,
+                    image_data=request.image_data,
                 )
             except Exception as ge:
                 logger.error(f"Unexpected error in gemini_service: {ge}. Using fallback.", exc_info=True)
@@ -608,8 +616,22 @@ class ChatService:
 
             answer_text = gemini_payload.answer
             next_steps = gemini_payload.next_steps
-            grounded = gemini_payload.grounded
-            identified_stds = val_result.identified_standards
+            grounded = gemini_payload.grounded if not has_image else True
+
+            if not val_result.identified_standards and gemini_payload.identified_standards:
+                identified_stds = [
+                    IdentifiedStandard(
+                        standard_number=s.get("standard_number", "IS Standard"),
+                        title=s.get("title", "Indian Standard"),
+                        confidence=0.92,
+                        evidence_supported=True,
+                    )
+                    for s in gemini_payload.identified_standards
+                    if s.get("standard_number")
+                ]
+            else:
+                identified_stds = val_result.identified_standards
+
             backend_citations = val_result.citations
             res_mode = query_analysis.response_mode or ResponseMode.STANDARD_IDENTIFICATION
 

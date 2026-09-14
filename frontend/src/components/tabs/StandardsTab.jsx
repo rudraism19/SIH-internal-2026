@@ -435,7 +435,7 @@ export default function StandardsTab({ onAskAssistant }) {
                         onClick={() => onAskAssistant && onAskAssistant(`What are the testing and compliance requirements for ${std.code} (${std.title})?`)}
                         whileHover={{ scale: 1.04 }}
                         whileTap={{ scale: 0.96 }}
-                        title="Ask the BIS Assistant about this standard"
+                        title="Ask BIS Saarthi about this standard"
                         style={{
                           display: 'inline-flex',
                           alignItems: 'center',

@@ -68,7 +68,7 @@ export default function LoadingState({ onCancel }) {
         <div className="bis-loading-card">
           <div className="loading-header-row">
             <div className="loading-title-group">
-              <span className="loading-assistant-label">BIS Assistant</span>
+              <span className="loading-assistant-label">BIS Saarthi</span>
               <span className="loading-status-text">
                 Analyzing compliance query ({elapsedSeconds}s)...
               </span>

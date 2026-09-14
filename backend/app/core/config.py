@@ -1,19 +1,23 @@
+from pathlib import Path
 from typing import List, Union
 import json
 from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+_BACKEND_DIR = Path(__file__).resolve().parent.parent.parent
+_ENV_PATHS = (str(_BACKEND_DIR / ".env"), ".env")
+
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=_ENV_PATHS,
         env_file_encoding="utf-8",
         case_sensitive=True,
         extra="ignore",
     )
 
     # Core Application Settings
-    PROJECT_NAME: str = "BIS Assistant API"
+    PROJECT_NAME: str = "BIS Saarthi API"
     ENVIRONMENT: str = "development"
     DEBUG: bool = True
     PORT: int = 8000

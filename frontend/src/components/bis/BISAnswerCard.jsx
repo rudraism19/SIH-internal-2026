@@ -298,11 +298,11 @@ export default function BISAnswerCard({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
     >
-      {/* 1. Header Bar: BIS ASSISTANT + Verification Badge */}
+      {/* 1. Header Bar: BIS SAARTHI + Verification Badge */}
       <div className="bis-card-header">
         <div className="header-brand-row">
           <span className="bis-seal-icon">🏛</span>
-          <span className="bis-brand-name">BIS ASSISTANT</span>
+          <span className="bis-brand-name">BIS SAARTHI</span>
           {detected_language && detected_language !== 'en' && (
             <span className="lang-detected-tag">
               🌐 {detected_language.toUpperCase()}

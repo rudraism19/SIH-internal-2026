@@ -43,6 +43,9 @@ CORE CONVERSATIONAL PRINCIPLES:
 9. STRICT TOPIC FOCUS & CONTEXT ISOLATION:
    - When answering, you must focus SOLELY on the product/commodity specified in the user query and query analysis.
    - NEVER mention, reference, or carry over previous products or discussions (e.g. if the user previously discussed packaged drinking water, but is now asking about soap, liquor, or cement, NEVER mention drinking water or previous items under any circumstances).
+10. MULTIMODAL COMPUTER VISION CAPABILITY:
+    - You possess multimodal vision capabilities. When an image is attached (e.g. ISI Mark, CRS Mark, jewellery hallmark, product label, factory certificate), you MUST inspect the image directly and report your visual compliance observations.
+    - NEVER claim that you cannot view, process, or analyze images. State clearly what you observe in the image (or if the image is too blurry/dark to discern specific text) and explain the applicable BIS compliance rules.
 
 DYNAMIC RESPONSE MODES (DO NOT FORCE EVERY RESPONSE INTO THE SAME TEMPLATE):
 
@@ -149,6 +152,7 @@ class GeminiService:
         renewal_info: Optional[LicenseRenewalInfo] = None,
         batch_info: Optional[BatchCalculationInfo] = None,
         hallmarking_info: Optional[HallmarkingInfo] = None,
+        image_data: Optional[str] = None,
     ) -> GeminiAnswerPayload:
         """Generates a natural-language grounded answer using Gemini.
         
@@ -187,9 +191,42 @@ class GeminiService:
             hallmarking_info=hallmarking_info,
         )
 
-        candidate_models = [self.model.strip()] if self.model else []
-        for preferred_m in ["gemini-3.5-flash-lite", "gemini-3.1-flash-lite-preview", "gemini-3.5-flash"]:
-            if preferred_m not in candidate_models:
+        content_parts = []
+        if image_data and image_data.strip():
+            raw_b64 = image_data.strip()
+            mime_type = "image/jpeg"
+            if ";base64," in raw_b64:
+                header, raw_b64 = raw_b64.split(";base64,", 1)
+                if "image/" in header:
+                    mime_type = "image/" + header.split("image/", 1)[1].split(";")[0]
+            elif raw_b64.startswith("data:"):
+                parts = raw_b64.split(",", 1)
+                if len(parts) == 2:
+                    raw_b64 = parts[1]
+
+            content_parts.append({
+                "inlineData": {
+                    "mimeType": mime_type,
+                    "data": raw_b64.strip()
+                }
+            })
+            prompt_context += (
+                "\n\n### VISUAL INSPECTION DIRECTIVE (IMAGE ATTACHED BY USER):\n"
+                "The user has uploaded a product image, label, ISI mark, Hallmark stamp, or certificate. "
+                "Thoroughly analyze the image:\n"
+                "1. Identify any Indian Standard code (e.g. IS 1460, IS 14543, IS 1293), product model, brand, or technical specs shown.\n"
+                "2. Check ISI Mark or CRS Mark authenticity: verify if standard number is above the mark, and CM/L licence number or R-number is below.\n"
+                "3. For gold/silver hallmarking: inspect the 3 mandatory hallmark components (BIS logo, karatage/fineness e.g. 22K916, and 6-digit HUID code).\n"
+                "4. Assess statutory labelling compliance and provide actionable verification guidance via BIS Care App or Manakonline.\n"
+            )
+
+        content_parts.append({"text": prompt_context})
+
+        candidate_models = []
+        if self.model and self.model.strip():
+            candidate_models.append(self.model.strip())
+        for preferred_m in ["gemini-3.6-flash", "gemini-flash-latest", "gemini-3.5-flash-lite", "gemini-3.5-flash"]:
+            if preferred_m not in candidate_models and f"models/{preferred_m}" not in candidate_models:
                 candidate_models.append(preferred_m)
 
         payload = {
@@ -197,7 +234,7 @@ class GeminiService:
                 "parts": [{"text": GEMINI_SYSTEM_PROMPT}]
             },
             "contents": [
-                {"parts": [{"text": prompt_context}]}
+                {"parts": content_parts}
             ],
             "generationConfig": {
                 "responseMimeType": "application/json",

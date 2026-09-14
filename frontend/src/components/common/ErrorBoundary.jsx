@@ -50,9 +50,14 @@ export default class ErrorBoundary extends React.Component {
           <h2 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text-dark, #0B1F33)', marginBottom: 8 }}>
             Component Encountered an Issue
           </h2>
-          <p style={{ fontSize: '13px', color: 'var(--text-muted, #64748B)', maxWidth: 440, marginBottom: 20 }}>
-            An unexpected error occurred while rendering this module. You can reload this view or return to the main consultation assistant.
+          <p style={{ fontSize: '13px', color: 'var(--text-muted, #64748B)', maxWidth: 540, marginBottom: 16 }}>
+            An unexpected error occurred while rendering this module. You can reload this view or check the details below.
           </p>
+          {this.state.error && (
+            <pre style={{ textAlign: 'left', background: '#fef2f2', color: '#991b1b', padding: '12px 16px', borderRadius: 8, fontSize: '12px', maxWidth: '800px', width: '90%', overflow: 'auto', marginBottom: 16, border: '1px solid #fca5a5' }}>
+              {this.state.error.stack || this.state.error.message || String(this.state.error)}
+            </pre>
+          )}
           <button
             type="button"
             onClick={this.handleReset}

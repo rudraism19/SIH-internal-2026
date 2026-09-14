@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Mic, ArrowRight, Loader2, Square } from 'lucide-react';
+import { Search, Mic, ArrowRight, Loader2, Square, Image as ImageIcon, X, Upload } from 'lucide-react';
 import { transcribeAudio } from '../../services/api';
 import { getTranslations } from '../../constants/translations';
 
@@ -13,15 +13,24 @@ export default function ChatInput({
   initialText = '',
 }) {
   const t = getTranslations(selectedLanguage);
-  const activePlaceholder = placeholder || t.input?.placeholder || 'Ask about a product, IS code, certification, testing, or QCO requirements...';
+  const isHindi = selectedLanguage.startsWith('hi');
+  const activePlaceholder =
+    placeholder ||
+    t.input?.placeholder ||
+    (isHindi
+      ? 'उत्पाद, भारतीय मानक (IS कोड), ISI मार्क, प्रमाणन या QCO के बारे में पूछें...'
+      : 'Ask about a product, IS code, ISI mark, certification, testing, or QCO requirements...');
 
   const [inputText, setInputText] = useState(initialText || '');
+  const [attachedImage, setAttachedImage] = useState(null);
+  const [isDragging, setIsDragging] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [recordingSeconds, setRecordingSeconds] = useState(0);
   const [isTranscribing, setIsTranscribing] = useState(false);
   const [transcribeError, setTranscribeError] = useState(null);
 
   const textareaRef = useRef(null);
+  const fileInputRef = useRef(null);
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
   const timerIntervalRef = useRef(null);
@@ -55,11 +64,95 @@ export default function ChatInput({
     return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
   };
 
+  // Process selected image file
+  const processImageFile = (file) => {
+    if (!file || !file.type.startsWith('image/')) {
+      setTranscribeError(isHindi ? 'कृपया एक वैध छवि (PNG, JPG, WebP) अपलोड करें।' : 'Please upload a valid image file (PNG, JPG, WebP).');
+      return;
+    }
+    if (file.size > 10 * 1024 * 1024) {
+      setTranscribeError(isHindi ? 'छवि का आकार 10MB से कम होना चाहिए।' : 'Image size must be under 10MB.');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setAttachedImage({
+        dataUrl: e.target.result,
+        name: file.name,
+        size: `${(file.size / 1024).toFixed(0)} KB`,
+      });
+      setTranscribeError(null);
+      if (textareaRef.current) {
+        textareaRef.current.focus();
+      }
+    };
+    reader.onerror = () => {
+      setTranscribeError(isHindi ? 'छवि लोड करने में विफल।' : 'Failed to read image file.');
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleFileInputChange = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      processImageFile(file);
+    }
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
+  const handlePaste = (e) => {
+    const items = e.clipboardData?.items;
+    if (!items) return;
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].type.indexOf('image') !== -1) {
+        const file = items[i].getAsFile();
+        if (file) {
+          processImageFile(file);
+          e.preventDefault();
+          break;
+        }
+      }
+    }
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+    const file = e.dataTransfer?.files?.[0];
+    if (file) {
+      processImageFile(file);
+    }
+  };
+
   const handleSubmit = (e) => {
     if (e) e.preventDefault();
-    if (!inputText.trim() || isLoading || isRecording || isTranscribing) return;
-    onSendMessage(inputText.trim());
+    const trimmed = inputText.trim();
+    if ((!trimmed && !attachedImage) || isLoading || isRecording || isTranscribing) return;
+
+    // Send query and attached image to parent handler
+    onSendMessage(
+      trimmed || (isHindi ? 'कृपया इस संलग्न छवि का बीआईएस मानकों व आईएसआई मार्क के लिए निरीक्षण करें।' : 'Please inspect this attached product or mark image for BIS Indian Standards, ISI mark authenticity, and compliance.'),
+      attachedImage?.dataUrl || null
+    );
+
     setInputText('');
+    setAttachedImage(null);
     setTranscribeError(null);
     if (textareaRef.current) {
       textareaRef.current.style.height = '44px';
@@ -73,7 +166,7 @@ export default function ChatInput({
     }
   };
 
-  // Start Voice Recording via Web Audio MediaRecorder
+  // Voice Recording via Web Audio MediaRecorder
   const startRecording = async () => {
     setTranscribeError(null);
     setRecordingSeconds(0);
@@ -107,13 +200,13 @@ export default function ChatInput({
         try {
           const result = await transcribeAudio(audioBlob, selectedLanguage);
           if (result && result.transcript) {
-            setInputText(result.transcript);
+            setInputText((prev) => (prev ? `${prev} ${result.transcript}` : result.transcript));
             if (textareaRef.current) {
               textareaRef.current.focus();
             }
           }
         } catch {
-          setTranscribeError('Voice transcription failed. Please try again or type your query.');
+          setTranscribeError(isHindi ? 'वॉइस ट्रांसक्रिप्शन विफल रहा।' : 'Voice transcription failed. Please try again or type your query.');
         } finally {
           setIsTranscribing(false);
           setIsRecording(false);
@@ -123,7 +216,7 @@ export default function ChatInput({
       mediaRecorder.start(250);
       setIsRecording(true);
     } catch {
-      setTranscribeError('Microphone permission denied or hardware unavailable.');
+      setTranscribeError(isHindi ? 'माइक्रोफ़ोन अनुमति अस्वीकृत या उपलब्ध नहीं है।' : 'Microphone permission denied or hardware unavailable.');
       setIsRecording(false);
     }
   };
@@ -134,8 +227,39 @@ export default function ChatInput({
     }
   };
 
+  const canSubmit = Boolean(inputText.trim() || attachedImage) && !isLoading && !isRecording && !isTranscribing;
+
   return (
-    <div className="bis-search-box-wrapper">
+    <div
+      className={`bis-search-box-wrapper ${isDragging ? 'dragging-over' : ''}`}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+    >
+      {/* Hidden File Input for Image Upload */}
+      <input
+        type="file"
+        ref={fileInputRef}
+        accept="image/png,image/jpeg,image/jpg,image/webp"
+        style={{ display: 'none' }}
+        onChange={handleFileInputChange}
+      />
+
+      {/* Drag overlay notice */}
+      <AnimatePresence>
+        {isDragging && (
+          <motion.div
+            className="chat-drag-drop-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <Upload size={28} className="animate-bounce" />
+            <span>{isHindi ? 'बीआईएस एआई निरीक्षण के लिए छवि यहाँ छोड़ें' : 'Drop image here for BIS AI Multimodal Inspection'}</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <AnimatePresence>
         {transcribeError && (
           <motion.div
@@ -147,7 +271,41 @@ export default function ChatInput({
             transition={{ duration: 0.2 }}
           >
             <span>{transcribeError}</span>
-            <button type="button" onClick={() => setTranscribeError(null)}>×</button>
+            <button type="button" onClick={() => setTranscribeError(null)} aria-label="Dismiss error">×</button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Attached Image Preview Bar */}
+      <AnimatePresence>
+        {attachedImage && (
+          <motion.div
+            className="chat-attached-image-bar"
+            initial={{ opacity: 0, height: 0, y: -4 }}
+            animate={{ opacity: 1, height: 'auto', y: 0 }}
+            exit={{ opacity: 0, height: 0, y: -4 }}
+            transition={{ duration: 0.2 }}
+          >
+            <div className="attached-image-thumb-box">
+              <img src={attachedImage.dataUrl} alt="Preview" className="attached-image-thumb" />
+              <div className="attached-image-meta">
+                <span className="attached-image-badge">
+                  📷 {isHindi ? 'बीआईएस विज़न निरीक्षण तैयार' : 'Visual Inspection Ready'}
+                </span>
+                <span className="attached-image-name" title={attachedImage.name}>
+                  {attachedImage.name} ({attachedImage.size})
+                </span>
+              </div>
+            </div>
+            <button
+              type="button"
+              className="remove-attached-image-btn"
+              onClick={() => setAttachedImage(null)}
+              title={isHindi ? 'छवि हटाएं' : 'Remove attached image'}
+              aria-label="Remove attached image"
+            >
+              <X size={14} />
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
@@ -161,17 +319,44 @@ export default function ChatInput({
             id="bis-chat-textarea"
             ref={textareaRef}
             className="search-textarea"
-            placeholder={isRecording ? (t.input?.listening || 'Listening...') : activePlaceholder}
+            placeholder={
+              isRecording
+                ? (t.input?.listening || 'Listening...')
+                : attachedImage
+                ? (isHindi ? 'इस छवि के बारे में प्रश्न लिखें या सीधे भेजें...' : 'Ask about this image (e.g. verify ISI mark / standard)... or press Send')
+                : activePlaceholder
+            }
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             onKeyDown={handleKeyDown}
+            onPaste={handlePaste}
             disabled={isLoading || isRecording || isTranscribing}
             rows={1}
             aria-label="Ask BIS compliance search query"
           />
 
-          {/* Voice Mic Trigger */}
+          {/* Action Buttons: Image Upload & Voice Mic */}
           <div className="search-trailing-actions">
+            {/* Image Upload Trigger */}
+            <motion.button
+              type="button"
+              className={`image-upload-btn ${attachedImage ? 'active' : ''}`}
+              onClick={() => fileInputRef.current?.click()}
+              disabled={isLoading || isRecording || isTranscribing}
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.92 }}
+              title={
+                attachedImage
+                  ? (isHindi ? 'संलग्न छवि बदलें' : 'Replace attached image')
+                  : (isHindi ? 'छवि अपलोड करें (ISI मार्क, उत्पाद लेबल, हॉलमार्क)' : 'Upload image (ISI mark, product label, hallmark, certificate)')
+              }
+              aria-label="Upload image for BIS inspection"
+            >
+              <ImageIcon size={17} />
+              {attachedImage && <span className="image-attached-dot" />}
+            </motion.button>
+
+            {/* Voice Mic Trigger */}
             {isRecording ? (
               <motion.button
                 type="button"
@@ -213,6 +398,7 @@ export default function ChatInput({
         <div className="search-actions-footer">
           <div className="search-hints">
             <span className="hint-pill">Press Enter ↵ to search</span>
+            <span className="hint-pill">Paste / Drop image 📷</span>
             <span className="hint-pill">Shift + Enter for new line</span>
           </div>
 
@@ -241,10 +427,10 @@ export default function ChatInput({
             <motion.button
               type="submit"
               className="ask-bis-btn"
-              disabled={!inputText.trim() || isRecording || isTranscribing}
-              whileHover={inputText.trim() ? { scale: 1.03 } : {}}
-              whileTap={inputText.trim() ? { scale: 0.97 } : {}}
-              aria-label="Submit query to BIS Assistant"
+              disabled={!canSubmit}
+              whileHover={canSubmit ? { scale: 1.03 } : {}}
+              whileTap={canSubmit ? { scale: 0.97 } : {}}
+              aria-label="Submit query to BIS Saarthi"
             >
               <span>{t.input?.send || 'Send'}</span>
               <ArrowRight size={15} />
@@ -255,3 +441,4 @@ export default function ChatInput({
     </div>
   );
 }
+
