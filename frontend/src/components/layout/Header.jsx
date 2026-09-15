@@ -1,12 +1,29 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Menu, RotateCcw, Sun, Moon, FileDown, User, LogIn, LogOut, ChevronDown, ShieldCheck, Home, History } from 'lucide-react';
+import {
+  Menu,
+  RotateCcw,
+  Sun,
+  Moon,
+  FileDown,
+  User,
+  LogIn,
+  LogOut,
+  ChevronDown,
+  ShieldCheck,
+  Home,
+  History,
+  PanelLeftOpen,
+  PanelLeftClose,
+} from 'lucide-react';
 import LanguageSelector from '../common/LanguageSelector';
 import VoiceButton from '../common/VoiceButton';
 import { getTranslations } from '../../constants/translations';
 
 export default function Header({
   onOpenSidebar,
+  isSidebarCollapsed = false,
+  onToggleSidebarCollapse,
   selectedLanguage,
   onSelectLanguage,
   voiceEnabled,
@@ -46,18 +63,31 @@ export default function Header({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  const handleMenuClick = () => {
+    if (typeof window !== 'undefined' && window.innerWidth <= 768) {
+      if (onOpenSidebar) onOpenSidebar();
+    } else {
+      if (onToggleSidebarCollapse) {
+        onToggleSidebarCollapse();
+      } else if (onOpenSidebar) {
+        onOpenSidebar();
+      }
+    }
+  };
+
   return (
     <header className="bis-header">
       <div className="header-left">
         <motion.button
           type="button"
           className="header-menu-btn"
-          onClick={onOpenSidebar}
+          onClick={handleMenuClick}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          aria-label="Open navigation menu"
+          title={isSidebarCollapsed ? (selectedLanguage?.startsWith('hi') ? 'साइडबार फैलाएं (Ctrl+B)' : 'Expand sidebar (Ctrl+B)') : (selectedLanguage?.startsWith('hi') ? 'साइडबार समेटें (Ctrl+B)' : 'Collapse sidebar (Ctrl+B)')}
+          aria-label={isSidebarCollapsed ? 'Expand sidebar' : 'Toggle navigation menu'}
         >
-          <Menu size={20} />
+          {isSidebarCollapsed ? <PanelLeftOpen size={18} /> : <Menu size={18} />}
         </motion.button>
 
         <div className="header-identity">
@@ -116,7 +146,7 @@ export default function Header({
             aria-label="View Saved Chat History"
           >
             <History size={14} className="history-icon" />
-            <span className="history-label hidden sm:inline">
+            <span className="history-label hidden lg:inline">
               {selectedLanguage?.startsWith('hi') ? 'चैट इतिहास' : 'Chat History'}
             </span>
             {sessionCount > 0 && (
@@ -136,7 +166,7 @@ export default function Header({
             aria-label="Export consultation transcript to PDF"
           >
             <FileDown size={14} className="export-icon" />
-            <span className="export-label">Export PDF</span>
+            <span className="export-label hidden md:inline">Export PDF</span>
           </motion.button>
         )}
 
@@ -150,7 +180,7 @@ export default function Header({
           aria-label="Reset conversation"
         >
           <RotateCcw size={14} className="reset-icon" />
-          <span className="reset-label">{t.resetBtn}</span>
+          <span className="reset-label hidden md:inline">{t.resetBtn}</span>
         </motion.button>
 
         {/* User Profile / Auth Action */}

@@ -1,7 +1,9 @@
 import logging
 from typing import Optional, Dict, Any
+from urllib.parse import quote
 from fastapi import APIRouter, HTTPException, Header
 from pydantic import BaseModel
+from app.core.config import settings
 from app.core.database import (
     get_supabase_client,
     get_supabase_admin_client,
@@ -321,6 +323,19 @@ async def get_current_user(authorization: Optional[str] = Header(None)):
     except Exception as e:
         logger.warning(f"Failed to get user from token: {e}")
         raise HTTPException(status_code=401, detail="Session expired or invalid token. Please log in again.")
+
+
+@router.get("/google/url", tags=["Authentication"])
+async def get_google_auth_url(redirect_to: Optional[str] = None):
+    """Generates official Supabase Google OAuth authorization redirect URL."""
+    base_supabase = settings.SUPABASE_URL.rstrip("/")
+    target = redirect_to or "http://localhost:5173/?view=app"
+    auth_url = f"{base_supabase}/auth/v1/authorize?provider=google&redirect_to={quote(target, safe='')}"
+    return {
+        "success": True,
+        "url": auth_url,
+        "provider": "google",
+    }
 
 
 @router.post("/google", tags=["Authentication"])

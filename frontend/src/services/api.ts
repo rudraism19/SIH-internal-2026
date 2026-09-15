@@ -896,6 +896,25 @@ export async function authGetCurrentUser(token: string): Promise<AuthResponse> {
   }
 }
 
+export async function getGoogleAuthUrl(redirectTo?: string): Promise<{ success: boolean; url?: string; error?: string }> {
+  try {
+    const target = redirectTo || `${window.location.origin}/?view=app`;
+    const res = await fetch(`${API_BASE_URL}/api/auth/google/url?redirect_to=${encodeURIComponent(target)}`);
+    const data = await res.json();
+    if (!res.ok || !data.url) {
+      return { success: false, error: extractApiError(data, 'Failed to get Google sign in URL') };
+    }
+    return data;
+  } catch (err: any) {
+    const supabaseUrl = 'https://zkrdxwvgyarlqggwbegr.supabase.co';
+    const target = redirectTo || `${window.location.origin}/?view=app`;
+    return {
+      success: true,
+      url: `${supabaseUrl}/auth/v1/authorize?provider=google&redirect_to=${encodeURIComponent(target)}`,
+    };
+  }
+}
+
 export async function authGoogleSignIn(payload: {
   email: string;
   full_name?: string;

@@ -15,6 +15,10 @@ import {
   Settings,
   X,
   ExternalLink,
+  PanelLeftClose,
+  PanelLeftOpen,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 import { getTranslations } from '../../constants/translations';
 
@@ -40,6 +44,8 @@ export default function Sidebar({
   selectedLanguage = 'en-IN',
   sessionCount = 0,
   onOpenChatHistory,
+  isCollapsed = false,
+  onToggleCollapse,
 }) {
   const t = getTranslations(selectedLanguage);
 
@@ -75,10 +81,10 @@ export default function Sidebar({
         )}
       </AnimatePresence>
 
-      <aside className={`bis-sidebar ${isOpen ? 'open' : ''}`}>
+      <aside className={`bis-sidebar ${isOpen ? 'open' : ''} ${isCollapsed ? 'collapsed' : ''}`}>
         {/* Brand Header */}
         <div className="sidebar-brand">
-          <div className="brand-logo-seal">
+          <div className="brand-logo-seal" title={isCollapsed ? `${selectedLanguage.startsWith('hi') ? 'बीआईएस सारथी' : 'BIS SAARTHI'} - ${t.brandTitle}` : undefined}>
             <div className="heritage-brand-crest-wrapper shrink-0" style={{ width: '34px', height: '34px' }}>
               <svg
                 className="heritage-nav-brand-mark shrink-0"
@@ -98,38 +104,60 @@ export default function Sidebar({
                 <path d="M30 44c-5 1-9-1-12-5 5-2 9-1 12 5Zm36 0c5 1 9-1 12-5-5-2-9-1-12 5Z" />
               </svg>
             </div>
-            <div className="brand-text-col">
-              <span className="brand-sub" style={{ color: 'var(--action-blue)', letterSpacing: '0.08em', fontWeight: 700 }}>
-                {selectedLanguage.startsWith('hi') ? 'बीआईएस सारथी' : 'BIS SAARTHI'}
-              </span>
-              <span className="brand-title" style={{ fontFamily: 'var(--font-heritage), Georgia, serif', fontSize: '15px' }}>
-                {t.brandTitle}
-              </span>
-            </div>
+            {!isCollapsed && (
+              <div className="brand-text-col">
+                <span className="brand-sub" style={{ color: 'var(--action-blue)', letterSpacing: '0.08em', fontWeight: 700 }}>
+                  {selectedLanguage.startsWith('hi') ? 'बीआईएस सारथी' : 'BIS SAARTHI'}
+                </span>
+                <span className="brand-title" style={{ fontFamily: 'var(--font-heritage), Georgia, serif', fontSize: '15px' }}>
+                  {t.brandTitle}
+                </span>
+              </div>
+            )}
           </div>
 
-          {onClose && (
-            <motion.button
-              type="button"
-              className="sidebar-close-btn"
-              onClick={onClose}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              aria-label="Close navigation sidebar"
-            >
-              <X size={18} />
-            </motion.button>
-          )}
+          <div className="sidebar-header-actions">
+            {/* Desktop Collapse / Expand Toggle Button in Header */}
+            {onToggleCollapse && (
+              <motion.button
+                type="button"
+                className="sidebar-collapse-btn hidden md:flex"
+                onClick={onToggleCollapse}
+                whileHover={{ scale: 1.08 }}
+                whileTap={{ scale: 0.92 }}
+                title={isCollapsed ? (selectedLanguage.startsWith('hi') ? 'साइडबार फैलाएं (Ctrl+B)' : 'Expand sidebar (Ctrl+B)') : (selectedLanguage.startsWith('hi') ? 'साइडबार समेटें (Ctrl+B)' : 'Collapse sidebar (Ctrl+B)')}
+                aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+              >
+                {isCollapsed ? <PanelLeftOpen size={16} /> : <PanelLeftClose size={16} />}
+              </motion.button>
+            )}
+
+            {/* Mobile Drawer Close Button */}
+            {onClose && (
+              <motion.button
+                type="button"
+                className="sidebar-close-btn"
+                onClick={onClose}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                aria-label="Close navigation sidebar"
+              >
+                <X size={18} />
+              </motion.button>
+            )}
+          </div>
         </div>
 
-        <div className="sidebar-gov-badge">
-          <span>{t.brandSubtitle}</span>
-          <span className="sub-dept">{t.ministryBadge}</span>
-        </div>
+        {!isCollapsed && (
+          <div className="sidebar-gov-badge">
+            <span>{t.brandSubtitle}</span>
+            <span className="sub-dept">{t.ministryBadge}</span>
+          </div>
+        )}
 
         {/* Main Navigation */}
         <nav className="sidebar-nav" aria-label="Primary Navigation">
-          <div className="nav-group-label">{t.portalTitle}</div>
+          {!isCollapsed && <div className="nav-group-label">{t.portalTitle}</div>}
           {NAV_ITEMS.map((item) => {
             const Icon = item.icon;
             const isChatHistory = item.id === 'chat_history';
@@ -143,9 +171,11 @@ export default function Sidebar({
                 type="button"
                 className={`nav-link ${isActive ? 'active' : ''} ${isChatHistory ? 'nav-link-history' : ''}`}
                 onClick={() => handleNavClick(item.id)}
-                whileHover={{ x: 3 }}
+                whileHover={isCollapsed ? { scale: 1.08 } : { x: 3 }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.12 }}
+                title={itemLabel}
+                aria-label={itemLabel}
               >
                 {isActive && (
                   <motion.div
@@ -154,10 +184,15 @@ export default function Sidebar({
                     transition={{ type: 'spring', stiffness: 500, damping: 35 }}
                   />
                 )}
-                <Icon size={18} className="nav-icon" />
-                <span className="nav-label">{itemLabel}</span>
+                <Icon size={19} className="nav-icon" />
+                {!isCollapsed && <span className="nav-label">{itemLabel}</span>}
                 {isChatHistory && sessionCount > 0 && (
-                  <span className="sidebar-history-count-badge">{sessionCount}</span>
+                  <span
+                    className={isCollapsed ? 'sidebar-history-count-badge collapsed' : 'sidebar-history-count-badge'}
+                    title={`${sessionCount} saved sessions`}
+                  >
+                    {sessionCount}
+                  </span>
                 )}
                 {isActive && (
                   <motion.span
@@ -174,14 +209,17 @@ export default function Sidebar({
 
           {(() => {
             const isSettingsActive = activeNav === 'settings';
+            const settingsLabel = t.nav?.settings || 'Settings';
             return (
               <motion.button
                 type="button"
                 className={`nav-link ${isSettingsActive ? 'active' : ''}`}
                 onClick={() => handleNavClick('settings')}
-                whileHover={{ x: 3 }}
+                whileHover={isCollapsed ? { scale: 1.08 } : { x: 3 }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.12 }}
+                title={settingsLabel}
+                aria-label={settingsLabel}
               >
                 {isSettingsActive && (
                   <motion.div
@@ -190,8 +228,8 @@ export default function Sidebar({
                     transition={{ type: 'spring', stiffness: 500, damping: 35 }}
                   />
                 )}
-                <Settings size={18} className="nav-icon" />
-                <span className="nav-label">{t.nav?.settings || 'Settings'}</span>
+                <Settings size={19} className="nav-icon" />
+                {!isCollapsed && <span className="nav-label">{settingsLabel}</span>}
                 {isSettingsActive && (
                   <motion.span
                     layoutId="sidebarActivePill"
@@ -204,20 +242,43 @@ export default function Sidebar({
           })()}
         </nav>
 
-        {/* Footer info */}
+        {/* Footer info & Bottom Collapse Toggle */}
         <div className="sidebar-footer">
-          <div className="portal-meta">
-            <span className="portal-version">BIS Conformity Portal v2.4</span>
-            <a
-              href="https://www.services.bis.gov.in"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="portal-link"
+          {onToggleCollapse && (
+            <button
+              type="button"
+              className="sidebar-bottom-collapse-btn hidden md:flex"
+              onClick={onToggleCollapse}
+              title={isCollapsed ? (selectedLanguage.startsWith('hi') ? 'साइडबार फैलाएं (Ctrl+B)' : 'Expand sidebar (Ctrl+B)') : (selectedLanguage.startsWith('hi') ? 'साइडबार समेटें (Ctrl+B)' : 'Collapse sidebar (Ctrl+B)')}
+              aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
             >
-              <span>bis.gov.in</span>
-              <ExternalLink size={12} />
-            </a>
-          </div>
+              {isCollapsed ? (
+                <PanelLeftOpen size={18} className="collapse-icon" />
+              ) : (
+                <>
+                  <PanelLeftClose size={15} className="collapse-icon" />
+                  <span className="collapse-bottom-label">
+                    {selectedLanguage.startsWith('hi') ? 'साइडबार समेटें' : 'Collapse sidebar'}
+                  </span>
+                </>
+              )}
+            </button>
+          )}
+
+          {!isCollapsed && (
+            <div className="portal-meta">
+              <span className="portal-version">BIS Conformity Portal v2.4</span>
+              <a
+                href="https://www.services.bis.gov.in"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="portal-link"
+              >
+                <span>bis.gov.in</span>
+                <ExternalLink size={12} />
+              </a>
+            </div>
+          )}
         </div>
       </aside>
     </>

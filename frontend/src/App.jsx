@@ -63,9 +63,19 @@ export default function App() {
   const [currentView, setCurrentView] = useState(() => {
     try {
       const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get('view') === 'app') return 'app';
-      if (urlParams.get('view') === 'auth' || urlParams.get('view') === 'login') return 'auth';
-      localStorage.removeItem('bis_current_view');
+      const urlView = urlParams.get('view');
+      if (urlView === 'app') return 'app';
+      if (urlView === 'auth' || urlView === 'login') return 'auth';
+      if (urlView === 'landing') return 'landing';
+
+      const savedView = localStorage.getItem('bis_current_view');
+      const email = localStorage.getItem('bis_user_email');
+
+      if (savedView === 'app') return 'app';
+      if (savedView === 'auth') return 'auth';
+      if (savedView === 'landing') return 'landing';
+
+      if (email && email !== 'officer@bis.gov.in') return 'app';
     } catch {}
     return 'landing';
   });
@@ -124,8 +134,68 @@ export default function App() {
   const [voiceEnabled, setVoiceEnabled] = useState(false);
   const [voiceSpeaker, setVoiceSpeaker] = useState('priya');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [activeNav, setActiveNav] = useState('assistant');
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(() => {
+    try {
+      return localStorage.getItem('bis_sidebar_collapsed') === 'true';
+    } catch {
+      return false;
+    }
+  });
+  const [activeNav, setActiveNav] = useState(() => {
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const tabParam = urlParams.get('tab');
+      if (tabParam) return mapTargetTab(tabParam);
+      const savedTab = localStorage.getItem('bis_active_nav');
+      if (savedTab) return mapTargetTab(savedTab);
+    } catch {}
+    return 'assistant';
+  });
   const [initialPendingQuery, setInitialPendingQuery] = useState(null);
+
+  // Persist currentView to localStorage whenever it changes
+  useEffect(() => {
+    try {
+      if (currentView) {
+        localStorage.setItem('bis_current_view', currentView);
+      }
+    } catch {}
+  }, [currentView]);
+
+  // Persist activeNav to localStorage whenever it changes
+  useEffect(() => {
+    try {
+      if (activeNav) {
+        localStorage.setItem('bis_active_nav', activeNav);
+      }
+    } catch {}
+  }, [activeNav]);
+
+  const handleToggleSidebarCollapse = useCallback(() => {
+    setIsSidebarCollapsed((prev) => {
+      const next = !prev;
+      try {
+        localStorage.setItem('bis_sidebar_collapsed', String(next));
+      } catch {}
+      return next;
+    });
+  }, []);
+
+  // Keyboard shortcut Ctrl+B / Cmd+B to toggle sidebar collapse
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'b' && currentView === 'app') {
+        const target = e.target;
+        if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)) {
+          return;
+        }
+        e.preventDefault();
+        handleToggleSidebarCollapse();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [currentView, handleToggleSidebarCollapse]);
 
   // Audio Playback & Cancellation State and Refs
   const [activeAudioId, setActiveAudioId] = useState(null);
@@ -317,7 +387,7 @@ export default function App() {
 
   // Verify Supabase authenticated session on application mount & process email verification links
   useEffect(() => {
-    // 1. Check if user arrived via Supabase email verification link redirect (URL hash contains access_token)
+    // 1. Check if user arrived via Supabase OAuth or email verification redirect (URL hash contains access_token)
     try {
       const hash = window.location.hash;
       if (hash && hash.includes('access_token=')) {
@@ -330,6 +400,10 @@ export default function App() {
           if (refreshToken) {
             localStorage.setItem('bis_user_refresh_token', refreshToken);
           }
+          localStorage.setItem('bis_current_view', 'app');
+
+          // Check if OAuth provider (Google) or email confirmation link
+          const isGoogleOAuth = hashParams.get('provider_token') || hash.includes('provider=google') || hashParams.get('type') !== 'signup';
 
           // Clean URL hash for clean address bar
           window.history.replaceState(null, '', window.location.pathname);
@@ -341,12 +415,17 @@ export default function App() {
                 setUserProfile(res.user);
                 localStorage.setItem('bis_user_email', res.user.email);
                 localStorage.setItem('bis_user_profile', JSON.stringify(res.user));
+                localStorage.setItem('bis_current_view', 'app');
                 setCurrentView('app');
                 setActiveNav(pendingTab || 'assistant');
                 alert(
-                  selectedLanguage.startsWith('hi')
-                    ? 'ईमेल सफलतापूर्वक सत्यापित हो गया! बीआईएस सारथी में आपका स्वागत है।'
-                    : 'Email verified successfully! Welcome to BIS Saarthi.'
+                  isGoogleOAuth
+                    ? (selectedLanguage.startsWith('hi')
+                        ? 'Google से सफलतापूर्वक लॉगिन हुआ! बीआईएस सारथी में आपका स्वागत है।'
+                        : `Signed in with Google successfully as ${res.user.email}! Welcome to BIS Saarthi.`)
+                    : (selectedLanguage.startsWith('hi')
+                        ? 'ईमेल सफलतापूर्वक सत्यापित हो गया! बीआईएस सारथी में आपका स्वागत है।'
+                        : 'Email verified successfully! Welcome to BIS Saarthi.')
                 );
               }
             })
@@ -357,7 +436,7 @@ export default function App() {
         }
       }
     } catch (e) {
-      console.debug('Error checking email verification redirect:', e);
+      console.debug('Error checking auth redirect hash:', e);
     }
 
     // 2. Otherwise verify existing stored session token
@@ -429,13 +508,16 @@ export default function App() {
 
   const handleBackToLanding = useCallback(() => {
     try {
-      localStorage.removeItem('bis_current_view');
+      localStorage.setItem('bis_current_view', 'landing');
     } catch {}
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     setCurrentView('landing');
   }, []);
 
   const handleGoAuth = useCallback(() => {
+    try {
+      localStorage.setItem('bis_current_view', 'auth');
+    } catch {}
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     setCurrentView('auth');
   }, []);
@@ -456,7 +538,7 @@ export default function App() {
       localStorage.removeItem('bis_user_token');
       localStorage.removeItem('bis_user_email');
       localStorage.removeItem('bis_user_profile');
-      localStorage.removeItem('bis_current_view');
+      localStorage.setItem('bis_current_view', 'landing');
     } catch {}
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     setCurrentView('landing');
@@ -741,7 +823,7 @@ export default function App() {
   }
 
   return (
-    <div className="bis-app-root" data-theme={theme}>
+    <div className={`bis-app-root ${isSidebarCollapsed ? 'sidebar-collapsed' : ''}`} data-theme={theme}>
       {/* Navigation Sidebar */}
       <Sidebar
         activeNav={activeNav}
@@ -751,12 +833,16 @@ export default function App() {
         selectedLanguage={selectedLanguage}
         sessionCount={sessions.length}
         onOpenChatHistory={handleOpenChatHistory}
+        isCollapsed={isSidebarCollapsed}
+        onToggleCollapse={handleToggleSidebarCollapse}
       />
 
       {/* Main Content Area */}
       <div className="bis-main-workspace">
         <Header
           onOpenSidebar={() => setIsSidebarOpen(true)}
+          isSidebarCollapsed={isSidebarCollapsed}
+          onToggleSidebarCollapse={handleToggleSidebarCollapse}
           selectedLanguage={selectedLanguage}
           onSelectLanguage={setSelectedLanguage}
           voiceEnabled={voiceEnabled}
