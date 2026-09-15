@@ -22,10 +22,12 @@ Analyze the user's message and categorize it into exactly ONE of the following 1
 8. "product_specific": Queries asking for specifications, composition, clauses, or details about a specific named product.
 9. "document_search": Direct search or query mentioning a specific Indian Standard number (e.g. "IS 1460", "IS 2888:2004", "find IS 4984").
 10. "hallmarking": Questions about gold or silver hallmarking, 6-digit HUID verification, purity grades (24K, 22K, 916, 18K, 750, 14K), 3 mandatory marks, IS 1417 (gold jewellery), IS 2112 (silver), BIS Care app hallmark check, jeweller registration, or mandatory hallmarking districts.
-11. "unsupported": General chit-chat, greetings without substance, or questions completely unrelated to Indian Standards, products, or BIS certification (e.g. "What is the capital of France?", "tell me a joke").
+11. "greeting": Greetings, hellos, introductions, or polite pleasantries (e.g. "hi", "hello", "hey", "namaste", "good morning", "who are you", "how can you help me").
+12. "unsupported": General chit-chat or questions completely unrelated to Indian Standards, products, or BIS certification (e.g. "What is the capital of France?", "tell me a joke").
 
 CRITICAL ROUTING RULES FOR "needs_rag":
 - "needs_rag" MUST be false for generic informational queries that do NOT ask for a specific product's standard, clauses, or test parameters:
+  * "greeting" (e.g. "hi", "hello", "good morning") -> needs_rag = false
   * "certification_process" without a specific product (e.g. "How do I get certification for products?", "How to apply for ISI mark?") -> needs_rag = false
   * "general_bis" (e.g. "What is BIS?", "What does Bureau of Indian Standards do?") -> needs_rag = false
   * "laboratory" when general (e.g. "Where can I find BIS approved laboratories?") -> needs_rag = false
@@ -50,7 +52,7 @@ TOPIC STATUS & ENTITY OVERRIDE RULES:
   * If the user query introduces a new product or commodity (e.g. "daru", "liquor", "alcohol", "soap", "sabun", "cement", "pressure cooker"), "topic_status" MUST be "new_topic", "use_previous_context" MUST be false, and previous product context MUST NOT be inherited or mentioned under any circumstances!
 
 Extract structured metadata into a JSON object with:
-- "intent": One of the 11 intents listed above.
+- "intent": One of the 12 intents listed above.
 - "topic_status": "continuation", "new_topic", or "ambiguous".
 - "use_previous_context": boolean (true strictly for continuation, false for new topic).
 - "product": Name of the product or item (e.g. "toilet soap", "diesel", "gold jewellery"), or null if generic or none.
@@ -79,6 +81,7 @@ VALID_INTENTS = {
     "product_specific",
     "document_search",
     "hallmarking",
+    "greeting",
     "unsupported",
 }
 

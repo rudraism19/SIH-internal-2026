@@ -11,7 +11,7 @@ import CustomsCard from './CustomsCard';
 import RenewalCard from './RenewalCard';
 import TestingCard from './TestingCard';
 import BatchCalculatorCard from './BatchCalculatorCard';
-import { Play, Pause, ArrowRight, FileDown } from 'lucide-react';
+import { Play, Pause, ArrowRight, FileDown, ChevronDown, ChevronUp, Brain } from 'lucide-react';
 import { generateComplianceDossierPdf } from '../../utils/pdfGenerator';
 
 /** Inline Markdown parser for **bold**, `code`, and statutory badges */
@@ -236,6 +236,8 @@ export default function BISAnswerCard({
 }) {
   if (!msg) return null;
 
+  const [showThinking, setShowThinking] = React.useState(false);
+
   const {
     id,
     text = '',
@@ -258,12 +260,16 @@ export default function BISAnswerCard({
     next_steps = [],
     audio_base64,
     detected_language,
+    thinking_process,
   } = msg;
 
   const hasCitations = citations && citations.length > 0;
   const hasStandards = identified_standards && identified_standards.length > 0;
   const primaryStandard = hasStandards ? identified_standards[0]?.standard_number : citations[0]?.standard_number;
-  const isNoEvidence = !grounded && !hasCitations && !hasStandards && !compliance_info && !hallmarking_info;
+
+  const responseMode = msg.response_mode || _response_mode || '';
+  const isConversational = responseMode === 'GENERAL_CONVERSATION' || responseMode === 'GREETING' || (!msg.product && !_product && !primaryStandard);
+  const isNoEvidence = !isConversational && !grounded && !hasCitations && !hasStandards && !compliance_info && !hallmarking_info;
 
   // Detect if query was about general certification process
   const isGeneralCertificationQuery =
@@ -272,6 +278,7 @@ export default function BISAnswerCard({
     text.toLowerCase().includes('procedure for grant of licence');
 
   const stdForDossier = primaryStandard || compliance_info?.standard_number || testing_info?.standard_number || renewal_info?.standard_number;
+  const showDossier = Boolean(stdForDossier && !isConversational && (hasStandards || compliance_info || testing_info || hallmarking_info));
   const handleExportDossier = () => {
     generateComplianceDossierPdf({
       standardNumber: stdForDossier || 'IS STANDARD',
@@ -361,6 +368,40 @@ export default function BISAnswerCard({
         </motion.div>
       )}
 
+      {/* 2b. Gemini Thinking Process Accordion */}
+      {thinking_process && (
+        <div className="bis-thinking-accordion">
+          <button
+            type="button"
+            className={`bis-thinking-toggle ${showThinking ? 'expanded' : ''}`}
+            onClick={() => setShowThinking((prev) => !prev)}
+            aria-expanded={showThinking}
+          >
+            <div className="thinking-toggle-left">
+              <Brain size={14} className="thinking-brain-icon" />
+              <span className="thinking-title">Analysis & Compliance Reasoning</span>
+              <span className="thinking-pill">Gemini Thinking</span>
+            </div>
+            <div className="thinking-toggle-right">
+              <span className="thinking-action-label">{showThinking ? 'Collapse' : 'Expand'}</span>
+              {showThinking ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+            </div>
+          </button>
+          {showThinking && (
+            <motion.div
+              className="bis-thinking-content"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              transition={{ duration: 0.2 }}
+            >
+              <div className="thinking-content-text">
+                {thinking_process}
+              </div>
+            </motion.div>
+          )}
+        </div>
+      )}
+
       {/* 3. Main Answer Body */}
       <div className="bis-answer-body">
         {renderStructuredText(text)}
@@ -372,7 +413,7 @@ export default function BISAnswerCard({
       )}
 
       {/* 5. Identified Standards Section */}
-      {hasStandards && (
+      {hasStandards && !isConversational && (
         <div className="bis-standards-section">
           <div className="section-label-row">
             <span className="section-kicker">IDENTIFIED STANDARD</span>
@@ -400,8 +441,8 @@ export default function BISAnswerCard({
         </div>
       )}
 
-      {/* 6. Evidence Section (Clauses & Pages) */}
-      {hasCitations && (
+      {/* 6. Evidence Section (Clauses & Pages) - Only when verified evidence is required */}
+      {hasCitations && !isConversational && (
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
@@ -447,7 +488,7 @@ export default function BISAnswerCard({
       )}
 
       {/* 7b. Official Statutory Compliance Dossier & Audit Checklist PDF Export Banner */}
-      {stdForDossier && (
+      {showDossier && (
         <motion.div
           className="bis-dossier-download-banner"
           initial={{ opacity: 0, y: 8 }}

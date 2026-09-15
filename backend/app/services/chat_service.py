@@ -162,9 +162,10 @@ class ChatService:
 
             # Selective Domain Card Resolution: Only compute and attach cards if relevant to intent/query
             user_q_lower = f"{request.message} {resolved_query}".lower()
+            is_general_or_greeting = query_analysis.intent in ("greeting", "general_bis", "unsupported") and not active_product
 
             customs_info = None
-            if query_analysis.hsn_code or any(w in user_q_lower for w in ["customs", "import", "hsn", "port", "clearance", "icegate", "dgft"]):
+            if not is_general_or_greeting and (query_analysis.hsn_code or any(w in user_q_lower for w in ["customs", "import", "hsn", "port", "clearance", "icegate", "dgft"])):
                 customs_info = hsn_customs_service.resolve_customs_info(
                     query=resolved_query,
                     standard_number=active_standard,
@@ -173,7 +174,7 @@ class ChatService:
                 )
 
             hallmarking_info = None
-            if query_analysis.intent == "hallmarking" or any(w in user_q_lower for w in ["hallmark", "huid", "gold", "silver", "jewel", "karat", "carat", "purity", "22k", "18k", "14k", "916"]):
+            if not is_general_or_greeting and (query_analysis.intent == "hallmarking" or any(w in user_q_lower for w in ["hallmark", "huid", "gold", "silver", "jewel", "karat", "carat", "purity", "22k", "18k", "14k", "916"])):
                 hallmarking_info = hallmarking_service.resolve_hallmarking_info(
                     query=resolved_query,
                     standard_number=active_standard,
@@ -181,7 +182,7 @@ class ChatService:
                 )
 
             renewal_info = None
-            if any(w in user_q_lower for w in ["renew", "expiry", "expire", "validity", "form-vi", "form 6", "marking fee", "stop-marking", "grace"]):
+            if not is_general_or_greeting and any(w in user_q_lower for w in ["renew", "expiry", "expire", "validity", "form-vi", "form 6", "marking fee", "stop-marking", "grace"]):
                 renewal_info = license_lifecycle_service.resolve_renewal_info(
                     query=resolved_query,
                     standard_number=active_standard,
@@ -189,7 +190,7 @@ class ChatService:
                 )
 
             batch_info = None
-            if any(w in user_q_lower for w in ["batch", "sit", "routine test", "frequency", "control unit", "production", "manufacture"]):
+            if not is_general_or_greeting and any(w in user_q_lower for w in ["batch", "sit", "routine test", "frequency", "control unit", "production", "manufacture"]):
                 batch_info = batch_calculator_service.resolve_batch_info(
                     query=resolved_query,
                     standard_number=active_standard,
@@ -198,7 +199,7 @@ class ChatService:
                 )
 
             compliance_info = None
-            if query_analysis.intent in ("qco_requirement", "certification_requirement") or any(w in user_q_lower for w in ["qco", "mandatory", "compulsory"]):
+            if not is_general_or_greeting and (query_analysis.intent in ("qco_requirement", "certification_requirement") or any(w in user_q_lower for w in ["qco", "mandatory", "compulsory"])):
                 compliance_info = compliance_graph_service.resolve_compliance(
                     query=resolved_query,
                     standard_number=active_standard,
@@ -206,7 +207,7 @@ class ChatService:
                 )
 
             testing_info = None
-            if query_analysis.intent in ("testing_requirement", "laboratory") or any(w in user_q_lower for w in ["test", "lab", "laboratory", "parameter"]):
+            if not is_general_or_greeting and (query_analysis.intent in ("testing_requirement", "laboratory") or any(w in user_q_lower for w in ["test", "lab", "laboratory", "parameter"])):
                 testing_info = laboratory_service.resolve_testing_info(
                     query=resolved_query,
                     standard_number=active_standard,
@@ -419,6 +420,7 @@ class ChatService:
                 sections=fast_sections,
                 next_question=fast_next_q,
                 actions=fast_actions,
+                thinking_process=None,
             )
 
         # SLOW PATH (RAG): Query requires document retrieval & evidence verification
@@ -979,8 +981,20 @@ class ChatService:
             for s in identified_stds
         ]
 
-        strict_verified = bool(val_result.verified and len(backend_citations) > 0 and grounded)
-        strict_grounded = bool(grounded and len(backend_citations) > 0)
+        strict_verified = bool(
+            val_result.verified
+            and len(backend_citations) > 0
+            and grounded
+            and res_mode_str not in ("GENERAL_CONVERSATION", "GREETING")
+            and (active_product or active_standard)
+        )
+        strict_grounded = bool(
+            grounded
+            and len(backend_citations) > 0
+            and res_mode_str not in ("GENERAL_CONVERSATION", "GREETING")
+        )
+
+        gem_thinking = gemini_payload.thinking_process if ('gemini_payload' in locals() and gemini_payload) else None
 
         return ChatResponse(
             success=True,
@@ -1013,6 +1027,7 @@ class ChatService:
             sections=sections,
             next_question=next_question,
             actions=actions,
+            thinking_process=gem_thinking,
         )
 
 

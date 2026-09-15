@@ -16,6 +16,7 @@ Provides authoritative, structured answers, executive breakdowns, and actionable
 - greeting & unsupported
 """
 from typing import Dict, Any
+from app.schemas.chat import ResponseMode
 
 
 SCHEMES_DIFFERENCE_RESPONSE = {
@@ -353,58 +354,48 @@ CERTIFICATION_PROCESS_RESPONSE = {
 GENERAL_BIS_RESPONSE = {
     "answer": (
         "### Overview of the Bureau of Indian Standards (BIS)\n\n"
-        "The **Bureau of Indian Standards (BIS)** is the National Standards Body of India, established under the **Bureau of Indian Standards Act, 2016** (which repealed and superseded the BIS Act of 1986). It operates under the aegis of the Ministry of Consumer Affairs, Food & Public Distribution, Government of India.\n\n"
-        "#### Core Mandates & Functions of BIS:\n"
-        "• **Standards Formulation**: Developing Indian Standards (IS) harmonized with international ISO, IEC, and Codex Alimentarius standards across **15 Division Councils** (Chemical, Mechanical, Civil, Electronics, Food, Textiles, Transport, etc.). Over 21,000 Indian Standards are currently active.\n"
-        "• **Product Certification (Scheme-I ISI Mark)**: The iconic quality mark ensuring consumer safety, durability, and reliability across thousands of industrial and commercial products.\n"
-        "• **Compulsory Registration Scheme (Scheme-II CRS)**: Fast-track regulatory framework for consumer electronics, IT hardware, and renewable energy equipment.\n"
-        "• **Hallmarking of Precious Metals**: Mandatory purity certification of gold jewellery (IS 1417) and silver articles (IS 2112) using laser-engraved 6-digit HUID codes.\n"
-        "• **Foreign Manufacturers Certification Scheme (FMCS)**: Licensing overseas factories exporting regulated commodities to India.\n"
-        "• **National Testing Laboratory Network**: Operating apex central and regional testing facilities and auditing commercial labs under the Laboratory Recognition Scheme (LRS).\n"
-        "• **Consumer Redressal & Market Surveillance**: Conducting market raids, verifying genuine markings, and empowering citizens via the BIS Care App."
+        "The **Bureau of Indian Standards (BIS)** is the National Standards Body of India, established under the **Bureau of Indian Standards Act, 2016** under the aegis of the Ministry of Consumer Affairs, Food & Public Distribution, Government of India.\n\n"
+        "**Core Mandates & Functions:**\n"
+        "• **Standards Formulation**: Formulates national Indian Standards (IS codes) harmonized with international ISO/IEC benchmarks across 15 Division Councils.\n"
+        "• **Product Certification (ISI Mark & CRS)**: Grants licences to domestic and foreign manufacturers to use the iconic Standard Mark ensuring safety and quality.\n"
+        "• **Mandatory Quality Control Orders (QCO)**: Enforces statutory conformity assessment orders notified by Central Line Ministries.\n"
+        "• **Precious Metals Hallmarking**: Regulates mandatory purity certification of gold (IS 1417) and silver (IS 2112) with laser-engraved 6-digit HUID.\n"
+        "• **National Testing Laboratory Network**: Operates apex testing facilities and audits NABL-accredited commercial labs under the Laboratory Recognition Scheme (LRS).\n\n"
+        "To check requirements for a specific product, simply tell me the product name or IS standard code."
     ),
     "next_steps": [
-        "Search active Indian Standards in the official catalogue at manakonline.in under 'Know Your Standards'.",
-        "Ask me about any specific product to view its IS standard code, testing parameters, or QCO status.",
-        "Verify standard marks and licences using the official BIS Care mobile application.",
+        "Tell me your product name to check applicable Indian Standards and mandatory status.",
+        "Verify standard marks and licences on the official BIS Care mobile application or manakonline.in."
     ],
-    "next_question": "What product or service would you like to verify under Indian Standards?",
+    "next_question": "What product or industrial sector would you like to explore?",
     "actions": [
         {"label": "Certification Process", "query": "How does BIS certification work?", "type": "certification"},
         {"label": "Compare Schemes", "query": "What is the difference between Scheme I and Scheme II?", "type": "scheme"},
         {"label": "Fee Schedule", "query": "What is the fee structure for BIS certification?", "type": "fees"},
-        {"label": "Packaged Water", "query": "I want to start a packaged drinking water business", "type": "product"},
     ],
+    "response_mode": ResponseMode.GENERAL_CONVERSATION,
 }
 
 
 GREETING_RESPONSE = {
     "answer": (
-        "### Welcome to the Bureau of Indian Standards (BIS) AI Assistant\n\n"
-        "I am your specialized statutory compliance and technical standards consultant, trained on verified Indian Standards (IS codes), Quality Control Orders (QCOs), testing requirements, customs regulations, and hallmarking intelligence.\n\n"
-        "#### What I Can Help You With:\n"
-        "• **Standard Identification**: Ask which Indian Standard applies to your product (e.g., *'What standard applies to domestic pressure cookers?'* or *'IS code for LED bulbs'*).\n"
-        "• **Conformity Schemes**: Understand Scheme-I (ISI Mark), Scheme-II (CRS), FMCS for foreign factories, and Hallmarking.\n"
-        "• **Testing & Laboratory Parameters**: View critical test parameters, specification limits, and accredited testing laboratories.\n"
-        "• **Mandatory QCO Regulations**: Verify whether certification is legally mandatory before manufacturing or importing.\n"
-        "• **Customs & ICEGATE Import Clearances**: Check HSN code mapping, DGFT import policies, and port clearance advisories.\n"
-        "• **Licence Lifecycle & Factory SIT**: Control unit batch sizing, routine test frequencies, and Form-VI renewal deadlines.\n"
-        "• **Gold & Silver Hallmarking**: 6-digit HUID verification, recognized purity grades (22K916, 18K750), and consumer remedies."
+        "Hello! I am **BIS Saarthi**, your AI assistant for the Bureau of Indian Standards.\n\n"
+        "I can help you with:\n"
+        "• **Indian Standards**: Finding the applicable IS code and product specifications for your product.\n"
+        "• **Certification**: Step-by-step guidance for Scheme-I (ISI Mark), Scheme-II (CRS), and FMCS for foreign manufacturers.\n"
+        "• **Mandatory QCOs**: Checking whether BIS certification is legally compulsory before manufacture or import.\n"
+        "• **Testing & Hallmarking**: Laboratory test parameters, accredited testing facilities, and gold/silver HUID verification.\n\n"
+        "Which product or standard would you like to explore today?"
     ),
-    "next_steps": [
-        "Ask about a product: 'What BIS standard applies to packaged drinking water?'",
-        "Compare schemes: 'What is the difference between Scheme I and Scheme II?'",
-        "Check fees: 'What is the fee structure for BIS certification?'",
-        "Verify hallmarking: 'How do I check gold hallmarking with HUID?'",
-    ],
-    "next_question": "Which product or compliance query would you like to explore today?",
+    "next_steps": [],
+    "next_question": "What product or standard would you like assistance with?",
     "actions": [
-        {"label": "Certification Process", "query": "How does BIS certification work?", "type": "certification"},
-        {"label": "Drinking Water", "query": "I want to start a packaged drinking water business", "type": "product"},
-        {"label": "Toilet Soap", "query": "BIS standard for soap", "type": "product"},
-        {"label": "Helmets", "query": "What are the requirements for helmets?", "type": "product"},
-        {"label": "Gold Hallmarking", "query": "What is gold hallmarking and how do I check HUID?", "type": "hallmark"},
+        {"label": "How Certification Works", "query": "How does BIS certification work?", "type": "certification"},
+        {"label": "Search Product Standard", "query": "What Indian Standards apply to packaged drinking water?", "type": "standard"},
+        {"label": "Gold Hallmarking & HUID", "query": "How does gold hallmarking work and how do I check HUID?", "type": "hallmark"},
+        {"label": "Fee Structure", "query": "What is the fee structure for BIS certification?", "type": "fees"},
     ],
+    "response_mode": ResponseMode.GENERAL_CONVERSATION,
 }
 
 
@@ -551,7 +542,11 @@ def get_predefined_response(intent: str, query: str = "", language: str = "en") 
     q_clean = query.lower().strip().rstrip("!?.,")
 
     # 1. Greetings & System Assistance
-    if q_clean in {"hi", "hello", "hey", "namaste", "namaskar", "good morning", "good afternoon", "good evening", "greetings", "start", "help"}:
+    if (
+        intent == "greeting"
+        or q_clean in {"hi", "hello", "hey", "namaste", "namaskar", "good morning", "good afternoon", "good evening", "greetings", "start", "help", "who are you", "who r u", "what is bis saarthi"}
+        or any(q_clean.startswith(g) for g in ["hi ", "hello ", "hey ", "namaste ", "good morning ", "namaskar "])
+    ):
         return GREETING_RESPONSE
 
     # 1b. Standards Clubs (Schools & Colleges)
@@ -611,7 +606,9 @@ def get_predefined_response(intent: str, query: str = "", language: str = "en") 
         return CERTIFICATION_PROCESS_RESPONSE
 
     # 13. Intent-based fallback routing
-    if intent == "certification_process":
+    if intent == "greeting":
+        return GREETING_RESPONSE
+    elif intent == "certification_process":
         return CERTIFICATION_PROCESS_RESPONSE
     elif intent == "general_bis":
         return GENERAL_BIS_RESPONSE
