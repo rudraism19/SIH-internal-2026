@@ -133,8 +133,8 @@ export default function ChatHistorySidebar({
           <User size={15} />
         </div>
         <div className="history-user-info">
-          <span className="history-user-email" title={userEmail || 'officer@bis.gov.in'}>
-            {userEmail || 'officer@bis.gov.in'}
+          <span className="history-user-email" title={userEmail || (isHindi ? 'सत्यापित उपयोगकर्ता' : 'Authenticated User')}>
+            {userEmail || (isHindi ? 'सत्यापित उपयोगकर्ता' : 'Authenticated User')}
           </span>
           <span className="history-vault-tag">
             <Shield size={10} />

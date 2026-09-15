@@ -73,9 +73,11 @@ export default function App() {
   const [landingLang, setLandingLang] = useState('en');
   const [userEmail, setUserEmail] = useState(() => {
     try {
+      const token = localStorage.getItem('bis_user_token');
       const stored = localStorage.getItem('bis_user_email');
-      if (stored && stored.toLowerCase().includes('guest')) {
+      if (stored && (stored.toLowerCase().includes('guest') || stored.toLowerCase() === 'officer@bis.gov.in')) {
         localStorage.removeItem('bis_user_email');
+        localStorage.removeItem('bis_user_profile');
         return null;
       }
       return stored || null;
@@ -85,6 +87,9 @@ export default function App() {
   });
   const [userProfile, setUserProfile] = useState(() => {
     try {
+      const token = localStorage.getItem('bis_user_token');
+      const storedEmail = localStorage.getItem('bis_user_email');
+      if (!storedEmail || storedEmail === 'officer@bis.gov.in') return null;
       const stored = localStorage.getItem('bis_user_profile');
       return stored ? JSON.parse(stored) : null;
     } catch {
@@ -387,17 +392,21 @@ export default function App() {
   }, []);
 
   const handleEnterApp = useCallback((email, targetTab) => {
-    const assignedEmail = email || 'officer@bis.gov.in';
-    setUserEmail(assignedEmail);
-    try {
-      localStorage.setItem('bis_user_email', assignedEmail);
-    } catch {}
-    if (targetTab) {
-      setActiveNav(mapTargetTab(targetTab));
+    const activeEmail = email || userEmail;
+    if (activeEmail && activeEmail !== 'officer@bis.gov.in') {
+      setUserEmail(activeEmail);
+      try {
+        localStorage.setItem('bis_user_email', activeEmail);
+      } catch {}
+      if (targetTab) {
+        setActiveNav(mapTargetTab(targetTab));
+      }
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      setCurrentView('app');
+    } else {
+      handleGetStarted(targetTab);
     }
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-    setCurrentView('app');
-  }, []);
+  }, [userEmail, handleGetStarted]);
 
   const handleAuthSuccess = useCallback((email, profile) => {
     const assignedEmail = email || profile?.email || 'user@standards.nic.in';
@@ -651,8 +660,12 @@ export default function App() {
   const handleStartQueryFromLanding = useCallback((query) => {
     if (!query) return;
     setInitialPendingQuery(query);
-    handleEnterApp(userEmail || 'officer@bis.gov.in', 'assistant');
-  }, [handleEnterApp, userEmail]);
+    if (userEmail && userEmail !== 'officer@bis.gov.in') {
+      handleEnterApp(userEmail, 'assistant');
+    } else {
+      handleGetStarted('assistant');
+    }
+  }, [handleEnterApp, handleGetStarted, userEmail]);
 
   // When entering the workspace with a pre-filled landing query, trigger query streaming
   useEffect(() => {
@@ -705,7 +718,6 @@ export default function App() {
             {currentView === 'landing' ? (
               <WovenLanding
                 onGetStarted={handleGetStarted}
-                onEnterApp={handleEnterApp}
                 onStartQuery={handleStartQueryFromLanding}
                 language={landingLang}
                 setLanguage={handleSetLandingLang}

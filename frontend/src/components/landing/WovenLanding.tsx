@@ -69,7 +69,6 @@ const TRENDING_QUERIES = [
 ];
 
 interface WovenLandingProps {
-  onEnterApp?: (userEmail?: string, targetTab?: string) => void;
   onGetStarted: (targetTab?: string) => void;
   onStartQuery?: (query: string) => void;
   language: 'en' | 'hi';
@@ -79,7 +78,6 @@ interface WovenLandingProps {
 }
 
 export const WovenLanding: React.FC<WovenLandingProps> = ({
-  onEnterApp,
   onGetStarted,
   onStartQuery,
   language,
@@ -94,13 +92,9 @@ export const WovenLanding: React.FC<WovenLandingProps> = ({
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Direct module launcher: launches workspace directly into target module
+  // Module navigator: routes to login / authentication page before entering module
   const handleOpenModule = (targetTab: string) => {
-    if (onEnterApp) {
-      onEnterApp(undefined, targetTab);
-    } else {
-      onGetStarted(targetTab);
-    }
+    onGetStarted(targetTab);
   };
 
   React.useEffect(() => {

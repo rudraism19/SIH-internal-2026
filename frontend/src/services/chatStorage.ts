@@ -72,7 +72,7 @@ export function generateSessionTitle(firstQuery: string, hasImage: boolean = fal
 
 export function createNewSession(email?: string | null, customTitle?: string): ChatSession {
   const now = new Date().toISOString();
-  const user = email ? email.trim() : 'officer@bis.gov.in';
+  const user = email ? email.trim() : 'authenticated_user';
   return {
     id: 'bis-session-' + Date.now() + '-' + Math.random().toString(36).substring(2, 7),
     userEmail: user,
